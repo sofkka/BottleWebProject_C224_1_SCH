@@ -70,7 +70,7 @@
     <Content Include="views\contact.tpl" />
     <Content Include="views\index.tpl" />
     <Content Include="views\layout.tpl" />
-    <Content Include="views\module1WolfIsland.tpl">
+    <Content Include="views\module1_wolf_island.tpl">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\module2InfectionSpread.tpl">
