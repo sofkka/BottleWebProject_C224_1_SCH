@@ -35,9 +35,9 @@ def about():
     )
 
 @route('/wolf_island')
-@view('module1WolfIsland')
-def module1WolfIsland():
-    """Renders the module1WolfIsland page."""
+@view('module1_wolf_island')
+def module1_wolf_island():
+    """Renders the module1_wolf_island page."""
     return dict(
         title='The model of death and reproduction',
         message='A simulation model exploring death and reproduction dynamics on Wolf Island.',
