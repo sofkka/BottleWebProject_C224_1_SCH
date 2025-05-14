@@ -10,23 +10,23 @@
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="/" class="navbar-brand">Application name</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/home">Home</a></li>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                </ul>
-            </div>
+    <div class="navbar navbar-custom navbar-fixed-top">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="logo">
+                    <a href="/home">
+                        <img src="/static/images/icon.png" alt="Logo">
+                    </a>
+                </li>
+                <li class="links">
+                    <div class="button-container">
+                        <a href="/wolf_island" class="nav-button">Death and reproduction</a>
+                        <a href="/infection_spread" class="nav-button">The spread of infection</a>
+                        <a href="/cells_colonies" class="nav-button">Colonies of living cells</a>
+                        <a href="/about" class="nav-button">About authors</a>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 

@@ -33,3 +33,33 @@ def about():
         message='Your application description page.',
         year=datetime.now().year
     )
+
+@route('/wolf_island')
+@view('module1WolfIsland')
+def module1WolfIsland():
+    """Renders the module1WolfIsland page."""
+    return dict(
+        title='The model of death and reproduction',
+        message='A simulation model exploring death and reproduction dynamics on Wolf Island.',
+        year=datetime.now().year
+    )
+
+@route('/infection_spread')
+@view('module2InfectionSpread')
+def module2InfectionSpread():
+    """Renders the module2InfectionSpread page."""
+    return dict(
+        title='The spread of infection',
+        message='A model simulating the dynamics of infection spread in a population.',
+        year=datetime.now().year
+    )
+
+@route('/cells_colonies')
+@view('module3CellsColonies')
+def module3CellsColonies():
+    """Renders the module3CellsColonies page."""
+    return dict(
+        title='Colonies of living cells',
+        message='A simulation of growth and interaction in colonies of living cells.',
+        year=datetime.now().year
+    )
