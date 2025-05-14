@@ -55,9 +55,9 @@ def module2InfectionSpread():
     )
 
 @route('/cells_colonies')
-@view('module3CellsColonies')
-def module3CellsColonies():
-    """Renders the module3CellsColonies page."""
+@view('module3_cells_colonies')
+def module3_cells_colonies():
+    """Renders the module3_cells_colonies page."""
     return dict(
         title='Colonies of living cells',
         message='A simulation of growth and interaction in colonies of living cells.',
