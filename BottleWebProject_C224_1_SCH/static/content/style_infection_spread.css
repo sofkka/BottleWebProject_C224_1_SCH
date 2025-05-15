@@ -1,0 +1,83 @@
+/* Контейнер для двух колонок внутри .infection-spread */
+.infection-spread .container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 50px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/* Стили для левой колонки (параметры) внутри .infection-spread */
+.infection-spread .controls {
+    flex: 1;
+    margin-right: 20px;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .infection-spread .controls label {
+        color: #445508;
+        font-size: 1.1em;
+        margin-right: 10px;
+    }
+
+.infection-spread .range-limits {
+    color: #445508;
+    font-size: 1.1em;
+    margin: 0 5px;
+}
+
+.infection-spread #field-size {
+    width: 150px;
+    vertical-align: middle;
+}
+
+/* Стили для центрирования field-value */
+.infection-spread .field-value-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.infection-spread #field-value {
+    color: #445508;
+    font-size: 18px;
+}
+
+/* Стили для правой колонки (сетка) внутри .infection-spread */
+.infection-spread .grid-wrapper {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.infection-spread .grid-container {
+    border: 2px solid #F4A261;
+    background-color: #FFE4D6;
+    padding: 10px;
+}
+
+.infection-spread .grid-row {
+    display: flex;
+}
+
+.infection-spread .grid-cell {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #F4A261;
+    display: inline-block;
+    background-color: #FFE4D6;
+    vertical-align: top;
+}
+
+    .infection-spread .grid-cell.infected {
+        background-color: #F4A261; /* Заражённая клетка — оранжевая */
+    }
+
+    .infection-spread .grid-cell.immune {
+        background-color: #A9D6A9; /* Клетка с иммунитетом — зелёная */
+    }
