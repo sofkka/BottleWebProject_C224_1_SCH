@@ -1,45 +1,48 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+.cells-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-h1 {
+.grid-wrapper {
+    background-color: #FFF5F0;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.grid-table {
+    border-collapse: collapse;
+    background-color: #FFDAB9;
+}
+
+    .grid-table td {
+        border: 1px solid #ccc;
+        width: 20px;
+        height: 20px;
+    }
+
+    .grid-table .alive {
+        background-color: #FF4040;
+    }
+
+.cell-indicator {
+    color: #FF4040;
+}
+
+.settings p {
+    margin: 5px 0;
+}
+
+.settings select, .settings input[type="number"] {
+    margin-left: 5px;
+}
+
+.parameters {
+    color: #FF4040;
+    background-color: #FFF5F0;
+}
+
+.lead {
     text-align: center;
-}
-
-form {
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-#gridContainer {
-    display: inline-block;
-    border: 2px solid #333;
-}
-
-.row {
-    display: flex;
-}
-
-.cell {
-    width: 20px;
-    height: 20px;
-    border: 1px solid #999;
-    box-sizing: border-box;
-    cursor: pointer;
-}
-
-    .cell.alive {
-        background-color: black;
-    }
-
-    .cell.dead {
-        background-color: white;
-    }
-
-button {
-    margin-right: 10px;
-    padding: 5px 10px;
+    font-size: 26px;
 }

@@ -56,10 +56,14 @@ def module2InfectionSpread():
 
 @route('/cells_colonies')
 @view('module3_cells_colonies')
-def module3_cells_colonies():
+def module3_cells_coloniesÿ():
     """Renders the module3_cells_colonies page."""
     return dict(
         title='Colonies of living cells',
         message='A simulation of growth and interaction in colonies of living cells.',
-        year=datetime.now().year
+        year=datetime.now().year,
+        current_page='cells_colonies',
+        width=3,  
+        height=3,  
+        initial_cells=[(0,0), (0,1), (1,1), (2,0)] 
     )

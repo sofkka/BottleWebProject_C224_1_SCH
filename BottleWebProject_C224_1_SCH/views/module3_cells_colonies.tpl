@@ -1,107 +1,97 @@
 % rebase('layout.tpl', title=title, year=year)
 
-<body>
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
+<h2 class="lead">{{ title }}.</h2>
+<h3 class="lead">{{ message }}</h3>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<div class="cells-container">
+    <div class="grid-wrapper">
+        <table class="grid-table" id="gridTable">
+            % width = get('width', 3)  
+            % height = get('height', 3)  
+            % initial_cells = get('initial_cells', [(0,0), (0,1), (1,1), (2,0)]) 
+            % for i in range(height):
+                <tr>
+                % for j in range(width):
+                    % is_alive = (i, j) in initial_cells
+                    <td class="{{ 'alive' if is_alive else '' }}"></td>
+                % end
+                </tr>
+            % end
+        </table>
+    </div>
+    <div class="settings">
+        <p class="lead">Choose:</p>
+        <p class="lead">
+            the field size: 
+            <input type="number" class="parameters" name="field_width" id="fieldWidth" value="{{ width }}" min="1" max="50" style="width: 60px;">
+            X
+            <input type="number" class="parameters" name="field_height" id="fieldHeight" value="{{ height }}" min="1" max="50" style="width: 60px;">
+            <button type="submit" class="buttons" onclick="updateGrid()">Update Grid</button>
+        </p>
+        <p class="lead">
+            Parameter a the number of neighbors to reproduce (1-8): 
+            <select class="parameters" name="neighbors_reproduce" id="neighborsReproduce">
+                % for i in range(1, 9):
+                    <option value="{{ i }}">{{ i }}</option>
+                % end
+            </select>
+        </p>
+        <p class="lead">
+            Parameter b fewer neighbors (2-8): 
+            <select class="parameters" name="fewer_neighbors" id="fewerNeighbors">
+                % for i in range(2, 9):
+                    <option value="{{ i }}">{{ i }}</option>
+                % end
+            </select>
+        </p>
+        <p class="lead">
+            Parameter c more neighbors (1-7): 
+            <select class="parameters" name="more_neighbors" id="moreNeighbors">
+                % for i in range(1, 8):
+                    <option value="{{ i }}">{{ i }}</option>
+                % end
+            </select>
+        </p>
+    </div>
+</div>
+<button type="submit" class="buttons" name="action" value="start" id="startBtn">Start</button>
+<button type="submit" class="buttons" name="action" value="pause" id="pauseBtn">Pause</button>
+<button type="submit" class="buttons" name="action" value="reset" id="resetBtn">Reset</button>
 
-<p>Use this area to provide additional information.</p>
-    <form id="paramsForm">
-        <label>Parameter a the number of neighbors to reproduce (1-8):: <input type="number" id="a" name="a" value="{{params['a']}}" min="0" max="8"></label>
-        <label>Parameter b fewer neighbors (2-8): <input type="number" id="b" name="b" value="{{params['b']}}" min="0" max="8"></label>
-        <label>Parameter c more neighbors (1-7): <input type="number" id="c" name="c" value="{{params['c']}}" min="0" max="8"></label>
-        <button type="button" onclick="setParams()">Update Parameters</button>
-    </form>
 
-    <button id="startBtn">Start</button>
-    <button id="pauseBtn">Pause</button>
-    <button id="resetBtn">Reset</button>
+<script>
+    document.getElementById('fieldWidth').addEventListener('input', function() {
+        document.getElementById('fieldHeight').value = this.value;
+    });
 
-    <div id="gridContainer"></div>
+    document.getElementById('fieldHeight').addEventListener('input', function() {
+        document.getElementById('fieldWidth').value = this.value;
+    });
 
-    <script>
-        const width = 20;
-        const height = 20;
-        let grid = [];
-        let intervalId = null;
-        let params = {
-            'a': parseInt(document.getElementById('a').value),
-            'b': parseInt(document.getElementById('b').value),
-            'c': parseInt(document.getElementById('c').value)
-        };
+    function updateGrid() {
+        const width = parseInt(document.getElementById('fieldWidth').value);
+        const height = parseInt(document.getElementById('fieldHeight').value);
 
-        function initGrid() {
-            grid = [];
-            for (let y=0; y<height; y++) {
-                let row = [];
-                for (let x=0; x<width; x++) {
-                    row.push(0);
-                }
-                grid.push(row);
+        if (width < 1 || height < 1 || width > 50 || height > 50) {
+            alert('Please enter values between 1 and 50.');
+            return;
+        }
+
+        const table = document.getElementById('gridTable');
+        table.innerHTML = ''; 
+
+        for (let i = 0; i < height; i++) {
+            const row = document.createElement('tr');
+            for (let j = 0; j < width; j++) {
+                const cell = document.createElement('td');
+                cell.className = ''; 
+                row.appendChild(cell);
             }
+            table.appendChild(row);
         }
-
-        function renderGrid() {
-            const container = document.getElementById('gridContainer');
-            container.innerHTML = '';
-            for (let y=0; y<height; y++) {
-                const rowDiv = document.createElement('div');
-                rowDiv.className = 'row';
-                for (let x=0; x<width; x++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell ' + (grid[y][x] ? 'alive' : 'dead');
-                    cell.onclick = () => {
-                        grid[y][x] = grid[y][x] ? 0 : 1;
-                        renderGrid();
-                    };
-                    rowDiv.appendChild(cell);
-                }
-                container.appendChild(rowDiv);
-            }
-        }
-
-        function setParams() {
-            params.a = parseInt(document.getElementById('a').value);
-            params.b = parseInt(document.getElementById('b').value);
-            params.c = parseInt(document.getElementById('c').value);
-        }
-
-        async function step() {
-            const response = await fetch('/step', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({grid: grid, params: params})
-            });
-            const data = await response.json();
-            grid = data.grid;
-            renderGrid();
-        }
-
-        function start() {
-            if (intervalId) clearInterval(intervalId);
-            intervalId = setInterval(step, 500);
-        }
-
-        function pause() {
-            if (intervalId) {
-                clearInterval(intervalId);
-                intervalId = null;
-            }
-        }
-
-        function reset() {
-            pause();
-            initGrid();
-            renderGrid();
-        }
-
-        document.getElementById('startBtn').onclick = start;
-        document.getElementById('pauseBtn').onclick = pause;
-        document.getElementById('resetBtn').onclick = reset;
-
-        window.onload = () => {
-            initGrid();
-            renderGrid();
-        };
-    </script>
-</body>
-</html>
+    }
+</script>
