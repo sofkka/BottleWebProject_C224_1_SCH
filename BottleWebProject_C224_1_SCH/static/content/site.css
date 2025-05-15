@@ -108,14 +108,14 @@ input[type="checkbox"].input-validation-error {
 
 /* Стили для содержимого страницы */
 h2 {
-    margin-bottom: 20px;
+    margin-bottom: 28px;
     text-align: center;
     margin-top: 100px;
     color: #4C5C13;
 }
 
 h3 {
-    font-size: 1.2em;
+    font-size: 22px;
     margin-bottom: 20px;
     text-align: center;
     color: #4C5C13;
