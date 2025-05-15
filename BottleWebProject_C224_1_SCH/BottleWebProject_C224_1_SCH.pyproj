@@ -18,7 +18,7 @@
     <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
     <Name>BottleWebProject_C224_1_SCH</Name>
     <RootNamespace>BottleWebProject_C224_1_SCH</RootNamespace>
-    <InterpreterId>MSBuild|env_nik|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|env1|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.py" />
+    <Compile Include="controllers\module2_infection_spread.py" />
     <Compile Include="controllers\module3_cell_colonies.py">
       <SubType>Code</SubType>
     </Compile>
@@ -46,11 +47,17 @@
     <Folder Include="views\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="jsons\result_module2.json">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="requirements.txt" />
     <Content Include="static\content\bootstrap.css" />
     <Content Include="static\content\bootstrap.min.css" />
     <Content Include="static\content\site.css" />
     <Content Include="static\content\style_cell_colonies.css" />
+    <Content Include="static\content\style_infection_spread.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="static\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="static\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="static\fonts\glyphicons-halflings-regular.ttf" />
@@ -78,7 +85,7 @@
     <Content Include="views\module1_wolf_island.tpl">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\module2InfectionSpread.tpl">
+    <Content Include="views\module2_infection_spread.tpl">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\module3_cells_colonies.tpl">
@@ -113,6 +120,9 @@
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
       <Architecture>X64</Architecture>
     </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.11" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 
