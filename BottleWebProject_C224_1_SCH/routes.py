@@ -2,7 +2,7 @@
 Routes and views for the bottle application.
 """
 
-from bottle import route, view
+from bottle import route, view, static_file
 from datetime import datetime
 
 @route('/')
@@ -35,9 +35,9 @@ def about():
     )
 
 @route('/wolf_island')
-@view('module1WolfIsland')
-def module1WolfIsland():
-    """Renders the module1WolfIsland page."""
+@view('module1_wolf_island')
+def module1_wolf_island():
+    """Renders the module1_wolf_island page."""
     return dict(
         title='The model of death and reproduction',
         message='A simulation model exploring death and reproduction dynamics on Wolf Island.',
@@ -45,25 +45,29 @@ def module1WolfIsland():
     )
 
 @route('/infection_spread')
-@view('module2InfectionSpread')
-def module2InfectionSpread():
-    """Renders the module2InfectionSpread page."""
+@view('module2_infection_spread')
+def module2_infection_spread():
+    """Renders the module2_infection_spread page."""
+    from controllers.module2_infection_spread import get_initial_data
+    initial_data = get_initial_data()
     return dict(
-        title='The spread of infection',
-        message='A model simulating the dynamics of infection spread in a population.',
-        year=datetime.now().year
+        title='The model of ringworm infection spread',
+        message='A simulation model exploring the spread of ringworm infection.',
+        year=datetime.now().year,
+        initial_size=initial_data.get('size', 9),
+        grid=initial_data.get('grid', [[0]])
     )
 
 @route('/cells_colonies')
 @view('module3_cells_colonies')
-def module3_cells_coloniesÿ():
+def module3_cells_coloniesÃ¿():
     """Renders the module3_cells_colonies page."""
     return dict(
         title='Colonies of living cells',
         message='A simulation of growth and interaction in colonies of living cells.',
-        year=datetime.now().year,
-        current_page='cells_colonies',
-        width=3,  
-        height=3,  
-        initial_cells=[(0,0), (0,1), (1,1), (2,0)] 
+        year=datetime.now().year
     )
+
+@route('/static/<filepath:path>')
+def serve_static(filepath):
+    return static_file(filepath, root='D:/SOF/UP2/BottleWebProject_C224_1_SCH/BottleWebProject_C224_1_SCH/static')
