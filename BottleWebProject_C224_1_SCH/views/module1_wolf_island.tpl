@@ -12,7 +12,7 @@
     <div class="content-wrapper">
         <h2>{{ title }}</h2>
 
-        <div class="container">
+        <div class="simulation-wrapper">
             <div class="left-panel">
                 <h3>Simulation Parameters</h3>
                 <div class="input-row">

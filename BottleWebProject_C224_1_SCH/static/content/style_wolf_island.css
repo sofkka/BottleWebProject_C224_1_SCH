@@ -6,11 +6,11 @@ h3 {
 }
 
 .content-wrapper {
-    padding: 0px 0 20px 0;
-    margin-left: 60px;
+    padding: 0 0 20px 0;
+    flex: 1 0 auto;
 }
 
-.container {
+.simulation-wrapper {
     display: flex;
     gap: 10px;
     padding: 0 10px;
@@ -32,7 +32,7 @@ h3 {
     flex: 1;
     min-width: 300px;
     border-left: 3px solid #FDC6A7;
-    padding: 0px 20px 10px 50px;
+    padding: 0 20px 10px 50px;
     display: flex;
     flex-direction: column;
 }
@@ -156,10 +156,12 @@ h3 {
 
 .about-section {
     margin-top: 65px;
-    margin-left: 30px;
     padding: 20px;
     background-color: #FFF5F0;
     border-radius: 20px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .about-title {
