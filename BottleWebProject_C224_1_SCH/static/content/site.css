@@ -143,3 +143,18 @@ h1 {
         transform: scale(1.1);
         background-color: #FE8E66;
     }
+.footer {
+    max-width:1200px; 
+    margin:auto; 
+    display:flex; 
+    flex-wrap:wrap; 
+    justify-content:space-between;
+}
+.footer-style {
+    background-color: #D9E694;
+}
+.columns {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+}
