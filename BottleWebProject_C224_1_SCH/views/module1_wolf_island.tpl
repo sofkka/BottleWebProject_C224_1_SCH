@@ -1,7 +1,16 @@
 % rebase('layout.tpl', title=title, year=year)
 
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/content/style_wolf_island.css">
+</head>
+<body>
+    <div class="content-wrapper">
+        <h2>{{ title }}</h2>
 
         <div class="simulation-wrapper">
             <div class="left-panel">
