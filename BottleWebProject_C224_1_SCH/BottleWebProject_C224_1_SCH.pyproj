@@ -68,6 +68,10 @@
     <Content Include="static\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="static\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="static\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="static\images\1.jpg" />
+    <Content Include="static\images\2.jpg" />
+    <Content Include="static\images\3.jpg" />
+    <Content Include="static\images\4.jpg" />
     <Content Include="static\images\chernyshova_s.png" />
     <Content Include="static\images\icon.png" />
     <Content Include="static\images\khrustaleva_u.jpg" />
