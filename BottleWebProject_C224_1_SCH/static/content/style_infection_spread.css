@@ -22,14 +22,16 @@
 
     .infection-spread .controls label {
         color: #445508;
-        font-size: 1.1em;
-        margin-right: 10px;
+        font-size: 18px;
+        white-space: nowrap;
+        margin-right: 15px;
     }
 
 .infection-spread .range-limits {
     color: #445508;
-    font-size: 1.1em;
-    margin: 0 5px;
+    font-size: 18px;
+    white-space: nowrap;
+    margin: 0 10px;
 }
 
 .infection-spread #field-size {
@@ -39,8 +41,12 @@
 
 /* Стили для центрирования field-value */
 .infection-spread .field-value-wrapper {
+    width: 150px;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
+    text-align: center;
+    font-weight: bold;
 }
 
 .infection-spread #field-value {
@@ -75,9 +81,85 @@
 }
 
     .infection-spread .grid-cell.infected {
-        background-color: #F4A261; /* Заражённая клетка — оранжевая */
+        background-color: #F4A261;
     }
 
     .infection-spread .grid-cell.immune {
-        background-color: #A9D6A9; /* Клетка с иммунитетом — зелёная */
+        background-color: #A9D6A9;
+    }
+
+.two-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+    .two-buttons button {
+        width: 200px;
+    }
+
+.infection-spread .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.infection-spread .conte-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.infection-spread .slider-container {
+    display: block;
+}
+
+#button2:hover {
+    cursor: default;
+    background-color: #FFDAB9;
+}
+
+/* плавная прокрутка для якорей */
+html {
+    scroll-behavior: smooth;
+}
+
+.theory-link {
+    text-align: center;
+    margin: 10px 0 20px 0;
+    font-size: 16px;
+    color: #445508;
+}
+
+    .theory-link a {
+        color: #FE8E66;
+        text-decoration: none;
+        transition: color 0.3s ease; /* Плавное изменение цвета */
+    }
+
+        .theory-link a:hover { /* при наведении */
+            color: #FFDAB9;
+            text-decoration: underline;
+        }
+
+.link-to-theory {
+    display: flex;
+    justify-content: center;
+}
+
+    .link-to-theory p {
+        margin: 20px;
+        margin-left: 200px;
+    }
+
+#vero-klet-avt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    #vero-klet-avt img {
+        width: 250px;
+        height: 250px;
+        margin: 20px;
     }
