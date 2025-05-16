@@ -6,14 +6,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
+<!-- Page title and link to theory section -->
 <h2>{{ title }}.</h2>
 <div class="link-to-theory">
     <h3>{{ message }}</h3>
     <p class="theory-link"><a href="#theory-section">Read theory</a></p>
 </div>
 
+<!-- Main container for infection spread simulation -->
 <div class="infection-spread">
     <div class="container">
+        <!-- Controls section with form for grid size selection -->
         <div class="controls">
             <form method="GET" action="/infection_spread">
                 <div class="conte-container">
@@ -32,18 +35,20 @@
                     </div>
                 </div>
                 <br>
+                <!-- Buttons for starting simulation and saving grid state -->
                 <div class="two-buttons">
                     <button type="submit" class="buttons" name="action" value="start">Start</button>
                     <button type="submit" class="buttons" id="button2" name="saveToJson" value="saveToJson">Save to JSON</button>
                 </div>
             </form>
         </div>
+        <!-- Grid display section -->
         <div class="grid-wrapper">
-            <div class="grid-container" id="grid">
+            <div class="grid-container" id="grid" style="width: {{initial_size * 32}+10}px; height: {{initial_size * 32}+10}px;">
                 % for i in range(initial_size):
                     <div class="grid-row">
                         % for j in range(initial_size):
-                            <div class="grid-cell {{ 'infected' if grid[i][j] == 1 else 'immune' if grid[i][j] == 2 else '' }}"></div>
+                            <div class="grid-cell"></div>
                         % end
                     </div>
                 % end
@@ -52,6 +57,7 @@
     </div>
 </div>
 
+<!-- Theory section explaining the model and algorithm -->
 <div class="about-section">
     <h2 class="about-title" id="theory-section">Theory</h2>
 
@@ -62,7 +68,8 @@
     <br>
     <p>Users can configure the grid size (n, odd), observe the infection's spread in real-time, and save the results for analysis. The model provides insights into stochastic processes, epidemic dynamics, and the impact of immunity, making it a valuable tool for studying probabilistic systems and their applications in biological contexts.</p>
 
-<div id="vero-klet-avt">
+    <!-- Probabilistic Cellular Automaton description with image -->
+    <div id="vero-klet-avt">
         <div>
             <br><h3>Model: Probabilistic Cellular Automaton</h3>
             <p>A Probabilistic Cellular Automaton (PCA), also known as a stochastic cellular automaton, is a computational model used to simulate dynamic systems where cell states evolve based on probabilistic rules. Unlike deterministic cellular automata, where state transitions are fixed, PCAs incorporate randomness, making them suitable for modeling processes with uncertainty, such as disease spread or population dynamics.</p>
@@ -78,6 +85,7 @@
         <img src="static\images\vero_klet_avtomat.png" alt="Image vero_klet_avtomat">
     </div>
 
+    <!-- Algorithm description -->
     <br><h3>Algorithm for Solving the Problem</h3>
     <p>The simulation of infection spread (ringworm) on a skin patch is implemented using a Probabilistic Cellular Automaton. The algorithm models the infection dynamics on an n * n grid, where n is odd, with the central cell initially infected. The following steps outline the process:</p>
     <ol>
@@ -122,37 +130,3 @@
     </ol>
     <p>This algorithm ensures accurate modeling of the infection spread while adhering to the probabilistic and temporal rules specified.</p>
 </div>
-
-<script>
-    const grid = document.getElementById('grid');
-    const fieldValue = document.getElementById('field-value');
-    const source = new EventSource('/infection_spread/stream?size={{initial_size}}');
-
-    source.onmessage = function(event) {
-        const data = JSON.parse(event.data);
-        const newGrid = data.grid;
-        const newSize = data.size;
-
-        fieldValue.textContent = newSize;
-
-        grid.innerHTML = '';
-        grid.style.width = ${newSize * 32}px;
-        grid.style.height = ${newSize * 32}px;
-
-        for (let i = 0; i < newSize; i++) {
-            const row = document.createElement('div');
-            row.className = 'grid-row';
-            for (let j = 0; j < newSize; j++) {
-                const cell = document.createElement('div');
-                cell.className = 'grid-cell';
-                if (newGrid[i][j] === 1) {
-                    cell.classList.add('infected');
-                } else if (newGrid[i][j] == 2) {
-                    cell.classList.add('immune');
-                }
-                row.appendChild(cell);
-            }
-            grid.appendChild(row);
-        }
-    };
-</script>

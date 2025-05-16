@@ -2,7 +2,7 @@
 Routes and views for the bottle application.
 """
 
-from bottle import route, view, static_file
+from bottle import request, route, view, static_file
 from datetime import datetime
 
 @route('/')
@@ -46,15 +46,26 @@ def module1_wolf_island():
 @route('/infection_spread')
 @view('module2_infection_spread')
 def module2_infection_spread():
-    """Renders the module2_infection_spread page."""
-    from controllers.module2_infection_spread import get_initial_data
-    initial_data = get_initial_data()
+    # Get 'size' from GET request, default to '9'
+    size = request.GET.get('size', '9')
+    try:
+        # Convert size to integer and validate: must be odd, between 3 and 15
+        size = int(size)
+        if size % 2 == 0 or size < 3 or size > 15:
+            size = 3
+    except ValueError:
+        size = 3
+
+    # Create a grid of size x size filled with 0 (healthy cells)
+    grid = [[0 for _ in range(size)] for _ in range(size)]
+
+    # Return data for the template
     return dict(
         title='The model of ringworm infection spread',
         message='A simulation model exploring the spread of ringworm infection.',
         year=datetime.now().year,
-        initial_size=initial_data.get('size', 9),
-        grid=initial_data.get('grid', [[0]])
+        initial_size=size,
+        grid=grid
     )
 
 @route('/cells_colonies')
