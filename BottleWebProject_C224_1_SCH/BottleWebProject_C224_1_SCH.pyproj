@@ -72,6 +72,7 @@
     <Content Include="static\images\image_for_module3.png" />
     <Content Include="static\images\star.png" />
     <Content Include="static\images\thinking.png" />
+    <Content Include="static\images\vero_klet_avtomat.png" />
     <Content Include="static\scripts\bootstrap.js" />
     <Content Include="static\scripts\bootstrap.min.js" />
     <Content Include="static\scripts\jquery-1.10.2.intellisense.js" />
