@@ -38,55 +38,55 @@
     </div>
     <footer class="footer-style">
   <div class="footer">
-    
-    <div class="columns">
-      <h1>Navigation</h1>
-      <ul >
-        <li><a href="index.html" class="h2">Home</a></li>
-        <li><a href="articles.html" style="color:#fff; text-decoration:none;">Death and reproduction</a></li>
-        <li><a href="about.html" style="color:#fff; text-decoration:none;">The spread of infection</a></li>
-        <li><a href="contact.html" style="color:#fff; text-decoration:none;">Colonies of living cells</a></li>
-        <li><a href="contact.html" style="color:#fff; text-decoration:none;">About authors</a></li>
-      </ul>
-    </div>
-    
-    <div style="flex:1; min-width:200px; margin-bottom:20px;">
-      <h3 style="margin-bottom:10px;">Rate Our Site</h3>
-      <form id="star-rating-form" style="display:flex; align-items:center;">
-        <div id="stars" style="font-size: 2em; cursor: pointer;">
-          <span data-value="1" style="color: gray;">★</span>
-          <span data-value="2" style="color: gray;">★</span>
-          <span data-value="3" style="color: gray;">★</span>
-          <span data-value="4" style="color: gray;">★</span>
-          <span data-value="5" style="color: gray;">★</span>
-        </div>
-        <input type="hidden" id="rating-value" name="rating" value="">
-        <button type="submit" style="margin-left:10px; padding:8px; background-color:#555; color:#fff; border:none; cursor:pointer;">Submit</button>
-      </form>
-      <div id="star-message" style="margin-top:10px; font-size:14px; display:none;"></div>
-    </div>
-    
-    <div style="flex:1; min-width:200px; margin-bottom:20px;">
-      <h3 style="margin-bottom:10px;">Contact Us</h3>
-      <p style="margin:0;">Address: 123 Automaton St., Tech City</p>
-      <p style="margin:0;">Phone: +123 456 7890</p>
-      <p style="margin:0;">Email: info@cellularautomata.com</p>
-
-      <div style="margin-top:10px;">
-        <a href="#" style="margin-right:10px; color:#fff; text-decoration:none;">Website</a>
-        <a href="#" style="margin-right:10px; color:#fff; text-decoration:none;">Twitter</a>
-        <a href="#" style="margin-right:10px; color:#fff; text-decoration:none;">Facebook</a>
-        <a href="#" style="color:#fff; text-decoration:none;">Instagram</a>
+  <div class="columns">
+    <h1>Navigation</h1>
+    <ul>
+      <li><a href="/home" class="nav-link">Home</a></li>
+      <li><a href="/wolf_island" class="nav-link">Death and reproduction</a></li>
+      <li><a href="/infection_spread" class="nav-link">The spread of infection</a></li>
+      <li><a href="/cells_colonies" class="nav-link">Colonies of living cells</a></li>
+      <li><a href="/about" class="nav-link">About authors</a></li>
+    </ul>
+  </div>
+  <div class="rating-section">
+    <h1>Rate Our Site</h1>
+    <form id="star-rating-form">
+      <div id="stars">
+        <span data-value="1">☆</span>
+        <span data-value="2">☆</span>
+        <span data-value="3">☆</span>
+        <span data-value="4">☆</span>
+        <span data-value="5">☆</span>
       </div>
+      <input type="hidden" id="rating-value" name="rating" value="">
+      <div class="back-to-top">
+      <button class="buttons" type="submit">Submit</button>
+      </div>
+    </form>
+    <div id="star-message"></div>
+  </div>
+
+  <div class="contact-info">
+    <h3>Contact Us</h3>
+    <p>Address: 123 Automaton St., Tech City</p>
+    <p>Phone: +123 456 7890</p>
+    <p>Email: info@cellularautomata.com</p>
+    <div class="social-links">
+    <img class="d-none d-lg-inline" style="max-height: 3rem;" src="https://src.guap.ru/logos/suai/suai-desc-line.svg" alt="Saint-Petersburg State University of Aerospace Instrumentation (SUAI)">
+      <a href="https://guap.ru/en">Website</a>
+      <a href="https://vk.com/guap_ru">VK</a>
+      <a href="https://t.me/s/new_guap/10249">Telegram</a>
     </div>
-    
   </div>
-  <div style="text-align:center; margin-top:20px;">
-    <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" style="padding:10px 20px; background-color:#555; color:#fff; border:none; cursor:pointer;">Back to Top</button>
-  </div>
-  <div style="text-align:center; margin-top:10px; font-size:14px;">
-    © 2024 Cellular Automaton. All rights reserved.
-  </div>
+</div>
+
+<div class="back-to-top">
+  <button class="buttons" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">Back to Top</button>
+</div>
+
+<div class="copy">
+  © 2025 Practice with Opaleva & Bartasevich. All rights reserved.
+</div>
 </footer>
 
 <script>
