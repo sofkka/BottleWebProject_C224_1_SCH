@@ -29,8 +29,7 @@ def contact():
 def about():
     """Renders the about page."""
     return dict(
-        title='About',
-        message='Your application description page.',
+        title='About authors',
         year=datetime.now().year
     )
 

@@ -54,6 +54,9 @@
     <Content Include="static\content\bootstrap.css" />
     <Content Include="static\content\bootstrap.min.css" />
     <Content Include="static\content\site.css" />
+    <Content Include="static\content\style_about.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="static\content\style_cell_colonies.css" />
     <Content Include="static\content\style_infection_spread.css">
       <SubType>Code</SubType>
@@ -73,6 +76,15 @@
     <Content Include="static\images\star.png" />
     <Content Include="static\images\thinking.png" />
     <Content Include="static\images\vero_klet_avtomat.png" />
+    <Content Include="static\images\1.jpg" />
+    <Content Include="static\images\2.jpg" />
+    <Content Include="static\images\3.jpg" />
+    <Content Include="static\images\4.jpg" />
+    <Content Include="static\images\chernyshova_s.png" />
+    <Content Include="static\images\icon.png" />
+    <Content Include="static\images\khrustaleva_u.jpg" />
+    <Content Include="static\images\stebunov_n.JPG" />
+    <Content Include="static\images\vk_icon.png" />
     <Content Include="static\scripts\bootstrap.js" />
     <Content Include="static\scripts\bootstrap.min.js" />
     <Content Include="static\scripts\jquery-1.10.2.intellisense.js" />
