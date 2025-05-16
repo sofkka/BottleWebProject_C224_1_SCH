@@ -58,6 +58,9 @@
     <Content Include="static\content\style_infection_spread.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="static\content\style_wolf_island.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="static\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="static\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="static\fonts\glyphicons-halflings-regular.ttf" />
