@@ -21,7 +21,7 @@
                 <div class="author-info">
                     <h4>Chernyshova Sofya Leonidovna</h4>
                     <p><strong>Contribution:</strong> Created the project repository, developed the "Infection Spread" model - a simulation of ringworm on a skin area, and designed the main page and header of the site.</p>
-                    <a href="https://vk.com/sofkkar" class="vk-link">
+                    <a href="https://vk.com/sofkkar" class="vk-link" target="_blank">
                         <img src="static/images/vk_icon.png" alt="VK">
                     </a>
                 </div>
@@ -34,7 +34,7 @@
                 <div class="author-info">
                     <h4>Stebunov Nikita Yuryevich</h4>
                     <p><strong>Contribution:</strong> Created the README.md file, developed the "Wolf Island" model - an ecosystem with population dynamics of rabbits, wolves, and she-wolves, and designed this "About authors" page.</p>
-                    <a href="https://vk.com/xent7are" class="vk-link">
+                    <a href="https://vk.com/xent7are" class="vk-link" target="_blank">
                         <img src="static/images/vk_icon.png" alt="VK">
                     </a>
                 </div>
@@ -47,7 +47,7 @@
                 <div class="author-info">
                     <h4>Khrustaleva Ulyana Mikhailovna</h4>
                     <p><strong>Contribution:</strong> Developed the "Cell Life" model - the evolution of cell colonies with customizable rules, and created the website footer with additional information.</p>
-                    <a href="https://vk.com/darkpss" class="vk-link">
+                    <a href="https://vk.com/darkpss" class="vk-link" target="_blank">
                         <img src="static/images/vk_icon.png" alt="VK">
                     </a>
                 </div>
