@@ -1,24 +1,51 @@
 .cells-container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 20px;
+    width: 100%;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+}
+.layout, .container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.theory-section {
+    width: 100%;
+    max-width: 100%; /* чтобы не было ограничений */
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* отступ сверху, чтобы было видно при увеличении таблицы */
 }
 
 .grid-wrapper {
     background-color: #FFF5F0;
     padding: 20px;
     border-radius: 15px;
+    flex-shrink: 1;
+    flex-grow: 1;
+    max-width: calc(100% - 350px);
+    width: auto;
+    transition: width 0.2s ease;
+    box-sizing: border-box;
 }
 
 .grid-table {
     border-collapse: collapse;
     background-color: #FFDAB9;
+    width: 100%;
+    table-layout: fixed;
 }
 
     .grid-table td {
         border: 1px solid #ccc;
-        width: 20px;
-        height: 20px;
+        box-sizing: border-box;
     }
 
     .grid-table .alive {
@@ -42,7 +69,8 @@
     background-color: #FFF5F0;
 }
 
-.lead {
+.leader {
+    color: #4C5C13;
     text-align: center;
     font-size: 26px;
 }

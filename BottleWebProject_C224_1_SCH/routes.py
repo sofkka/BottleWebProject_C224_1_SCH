@@ -60,15 +60,10 @@ def module2_infection_spread():
 
 @route('/cells_colonies')
 @view('module3_cells_colonies')
-def module3_cells_coloniesя():
+def module3_cells_colonies():
     """Renders the module3_cells_colonies page."""
     return dict(
         title='Colonies of living cells',
         message='A simulation of growth and interaction in colonies of living cells.',
         year=datetime.now().year
     )
-
-# Статическая обработка для JavaScript и CSS
-@route('/static/<filepath:path>')
-def serve_static(filepath):
-    return static_file(filepath, root='D:/SOF/UP2/BottleWebProject_C224_1_SCH/BottleWebProject_C224_1_SCH/static')
