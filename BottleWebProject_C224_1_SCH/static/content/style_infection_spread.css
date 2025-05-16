@@ -1,4 +1,4 @@
-/* Контейнер для двух колонок внутри .infection-spread */
+/* Container for two columns inside .infection-spread */
 .infection-spread .container {
     display: flex;
     justify-content: space-between;
@@ -9,7 +9,7 @@
     justify-content: center;
 }
 
-/* Стили для левой колонки (параметры) внутри .infection-spread */
+/* Styles for the left column (controls) inside .infection-spread */
 .infection-spread .controls {
     flex: 1;
     margin-right: 20px;
@@ -39,7 +39,7 @@
     vertical-align: middle;
 }
 
-/* Стили для центрирования field-value */
+/* Center field-value */
 .infection-spread .field-value-wrapper {
     width: 150px;
     margin: 0 auto;
@@ -54,40 +54,52 @@
     font-size: 18px;
 }
 
-/* Стили для правой колонки (сетка) внутри .infection-spread */
+/* Styles for the right column (grid) inside .infection-spread */
 .infection-spread .grid-wrapper {
-    flex: 2;
     display: flex;
     justify-content: center;
+    background: none;
 }
 
 .infection-spread .grid-container {
     border: 2px solid #F4A261;
     background-color: #FFE4D6;
-    padding: 10px;
+    padding: 10px; /* Remove padding to fit cells tightly */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Stretch rows to fill container */
+    width: auto; /* Allow dynamic width based on content */
+    height: auto; /* Allow dynamic height based on content */
 }
 
 .infection-spread .grid-row {
     display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch; /* Ensure rows stretch horizontally */
 }
 
 .infection-spread .grid-cell {
     width: 30px;
     height: 30px;
     border: 1px solid #F4A261;
-    display: inline-block;
     background-color: #FFE4D6;
-    vertical-align: top;
+    box-sizing: border-box; /* Include border in width/height */
+    position: relative;
+    z-index: 1;
+    margin: 0; /* Remove any margins for tight fit */
 }
 
     .infection-spread .grid-cell.infected {
         background-color: #F4A261;
+        z-index: 2;
     }
 
     .infection-spread .grid-cell.immune {
         background-color: #A9D6A9;
+        z-index: 2;
     }
 
+/* Buttons styling */
 .two-buttons {
     display: flex;
     justify-content: center;
@@ -98,6 +110,7 @@
         width: 200px;
     }
 
+/* Slider row styling */
 .infection-spread .slider-row {
     display: flex;
     align-items: center;
@@ -119,11 +132,12 @@
     background-color: #FFDAB9;
 }
 
-/* плавная прокрутка для якорей */
+/* Smooth scrolling for anchors */
 html {
     scroll-behavior: smooth;
 }
 
+/* Theory link styling */
 .theory-link {
     text-align: center;
     margin: 10px 0 20px 0;
@@ -134,10 +148,10 @@ html {
     .theory-link a {
         color: #FE8E66;
         text-decoration: none;
-        transition: color 0.3s ease; /* Плавное изменение цвета */
+        transition: color 0.3s ease;
     }
 
-        .theory-link a:hover { /* при наведении */
+        .theory-link a:hover {
             color: #FFDAB9;
             text-decoration: underline;
         }
@@ -152,6 +166,7 @@ html {
         margin-left: 200px;
     }
 
+/* Probabilistic Cellular Automaton section */
 #vero-klet-avt {
     display: flex;
     justify-content: center;
