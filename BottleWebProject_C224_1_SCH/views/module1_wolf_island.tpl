@@ -16,11 +16,11 @@
             <div class="left-panel">
                 <h3>Simulation Parameters</h3>
                 <div class="input-row">
-                    <label>Island Width (N, 5-10):</label>
+                    <label>Island Width (N, 5-15):</label>
                     <input type="text">
                 </div>
                 <div class="input-row">
-                    <label>Island Height (M, 5-10):</label>
+                    <label>Island Height (M, 5-15):</label>
                     <input type="text">
                 </div>
                 <div class="input-row">
