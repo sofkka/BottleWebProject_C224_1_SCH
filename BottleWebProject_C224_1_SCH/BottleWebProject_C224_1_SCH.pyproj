@@ -30,6 +30,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.py" />
+    <Compile Include="controllers\module1_wolf_island.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="controllers\module2_infection_spread.py" />
     <Compile Include="controllers\module3_cell_colonies.py">
       <SubType>Code</SubType>
