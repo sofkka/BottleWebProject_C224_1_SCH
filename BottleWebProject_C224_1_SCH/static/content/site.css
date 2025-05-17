@@ -68,8 +68,6 @@ input[type="checkbox"].input-validation-error {
 }
 
 .button-container {
-    background-color: #FFF5F0;
-    border-radius: 30px;
     padding: 10px 20px;
     display: flex;
     align-items: center;
