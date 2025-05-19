@@ -76,6 +76,8 @@
     <Content Include="static\images\image_for_module1.png" />
     <Content Include="static\images\image_for_module2.png" />
     <Content Include="static\images\image_for_module3.png" />
+    <Content Include="static\images\rabbit.png" />
+    <Content Include="static\images\she_wolf.png" />
     <Content Include="static\images\star.png" />
     <Content Include="static\images\thinking.png" />
     <Content Include="static\images\vero_klet_avtomat.png" />
@@ -88,6 +90,7 @@
     <Content Include="static\images\khrustaleva_u.jpg" />
     <Content Include="static\images\stebunov_n.JPG" />
     <Content Include="static\images\vk_icon.png" />
+    <Content Include="static\images\wolf.png" />
     <Content Include="static\scripts\bootstrap.js" />
     <Content Include="static\scripts\bootstrap.min.js" />
     <Content Include="static\scripts\jquery-1.10.2.intellisense.js" />
