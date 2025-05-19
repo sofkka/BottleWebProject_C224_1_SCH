@@ -30,17 +30,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.py" />
-    <Compile Include="controllers\module1_wolf_island.py">
+    <Compile Include="static\controllers\module1_wolf_island.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="controllers\module2_infection_spread.py" />
-    <Compile Include="controllers\module3_cell_colonies.py">
+    <Compile Include="static\controllers\module2_infection_spread.py" />
+    <Compile Include="static\controllers\module3_cell_colonies.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="routes.py" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="controllers\" />
+    <Folder Include="static\controllers\" />
     <Folder Include="static\" />
     <Folder Include="static\content\" />
     <Folder Include="static\fonts\" />
