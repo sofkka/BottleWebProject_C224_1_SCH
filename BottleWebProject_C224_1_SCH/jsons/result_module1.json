@@ -35,6 +35,24 @@
                 "she_wolves": 0
             },
             "status": "All animals have died out"
+        },
+        {
+            "time": "15:38:50",
+            "input_parameters": {
+                "N": 6,
+                "M": 6,
+                "rabbits": 2,
+                "wolves": 2,
+                "she_wolves": 2,
+                "steps": 61
+            },
+            "simulation_results": {
+                "simulation_step": 61,
+                "rabbits": 0,
+                "wolves": 13,
+                "she_wolves": 17
+            },
+            "status": "Simulation completed successfully"
         }
     ]
 }
