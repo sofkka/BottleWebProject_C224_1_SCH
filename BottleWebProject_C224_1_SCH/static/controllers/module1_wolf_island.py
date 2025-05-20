@@ -1,5 +1,7 @@
 # -*- coding: cp1251 -*-
 import random
+import json
+import os
 from datetime import datetime
 
 # Глобальный словарь для хранения состояния симуляции
@@ -582,6 +584,67 @@ def prepare_grid_data(grid, N, M):
     # Возврат подготовленной сетки данных
     return grid_data
 
+# Функция для сохранения статистики симуляции в JSON-файл
+def save_to_json(simulation_state, input_data):
+    # Путь к JSON-файлу
+    json_path = 'jsons/result_module1.json'
+    # Получение текущей даты и времени
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    current_time = datetime.now().strftime('%H:%M:%S')
+    
+    # Формирование структуры данных для сохранения
+    save_data = {
+        'time': current_time,
+        'input_parameters': {
+            'N': int(input_data['N']) if input_data['N'] else 15,
+            'M': int(input_data['M']) if input_data['M'] else 15,
+            'rabbits': int(input_data['rabbits']) if input_data['rabbits'] else 0,
+            'wolves': int(input_data['wolves']) if input_data['wolves'] else 0,
+            'she_wolves': int(input_data['she_wolves']) if input_data['she_wolves'] else 0,
+            'steps': int(input_data['steps']) if input_data['steps'] else 0
+        },
+        'simulation_results': {
+            'simulation_step': simulation_state.get('current_step', 0),
+            'rabbits': len(simulation_state.get('rabbits_list', [])),
+            'wolves': len(simulation_state.get('wolves_list', [])),
+            'she_wolves': len(simulation_state.get('she_wolves_list', []))
+        },
+        'status': 'Simulation completed successfully' if not simulation_state.get('extinction', False) else 'All animals have died out'
+    }
+    
+    # Создание директории jsons, если она не существует
+    os.makedirs(os.path.dirname(json_path), exist_ok=True)
+    
+    # Инициализация структуры JSON
+    json_data = {}
+    # Проверка наличия файла
+    if os.path.exists(json_path):
+        try:
+            # Чтение существующего JSON-файла
+            with open(json_path, 'r', encoding='utf-8') as file:
+                json_data = json.load(file)
+        except (json.JSONDecodeError, IOError):
+            # Обработка ошибок чтения файла
+            json_data = {}
+    
+    # Проверка наличия ключа с текущей датой
+    if current_date not in json_data:
+        # Создание нового списка для текущей даты
+        json_data[current_date] = []
+    
+    # Добавление новой записи в список для текущей даты
+    json_data[current_date].append(save_data)
+    
+    # Запись обновленных данных в JSON-файл
+    try:
+        with open(json_path, 'w', encoding='utf-8') as file:
+            json.dump(json_data, file, ensure_ascii=False, indent=4)
+        # Возврат успешного результата
+        return True, ''
+    except IOError as e:
+        # Возврат ошибки при записи в файл
+        return False, f'Failed to save to JSON: {str(e)}'
+
 # Функция для управления симуляцией через веб-интерфейс
 def wolf_island_controller(action, N_str, M_str, rabbits_str, wolves_str, she_wolves_str, steps_str):
     # Объявление глобальной переменной simulation_state
@@ -654,6 +717,78 @@ def wolf_island_controller(action, N_str, M_str, rabbits_str, wolves_str, she_wo
             'steps': steps,
             'refresh': False,
             'error': ''
+        }
+
+    # Проверка действия на сохранение в JSON
+    if action == 'save':
+        # Проверка, идет ли симуляция
+        if simulation_state.get('running', False):
+            # Возврат ошибки при попытке сохранения во время симуляции
+            return {
+                'title': 'The model of movement and death',
+                'year': datetime.now().year,
+                'N': int(N_str) if N_str else 15,
+                'M': int(M_str) if M_str else 15,
+                'grid_data': [[None for i in range(15)] for i in range(15)],
+                'stats': {'step': 0, 'rabbits': 0, 'wolves': 0, 'she_wolves': 0},
+                'rabbits': rabbits_str,
+                'wolves': wolves_str,
+                'she_wolves': she_wolves_str,
+                'steps': steps_str,
+                'refresh': False,
+                'error': 'Cannot save results during simulation.'
+            }
+        # Проверка наличия данных симуляции
+        if not simulation_state:
+            # Возврат ошибки при отсутствии данных
+            return {
+                'title': 'The model of movement and death',
+                'year': datetime.now().year,
+                'N': int(N_str) if N_str else 15,
+                'M': int(M_str) if M_str else 15,
+                'grid_data': [[None for i in range(15)] for i in range(15)],
+                'stats': {'step': 0, 'rabbits': 0, 'wolves': 0, 'she_wolves': 0},
+                'rabbits': rabbits_str,
+                'wolves': wolves_str,
+                'she_wolves': she_wolves_str,
+                'steps': steps_str,
+                'refresh': False,
+                'error': 'No simulation data to save.'
+            }
+        # Формирование входных данных
+        input_data = {
+            'N': N_str,
+            'M': M_str,
+            'rabbits': rabbits_str,
+            'wolves': wolves_str,
+            'she_wolves': she_wolves_str,
+            'steps': steps_str
+        }
+        # Сохранение данных в JSON
+        success, error = save_to_json(simulation_state, input_data)
+        # Подготовка данных сетки для отображения
+        grid_data = prepare_grid_data(simulation_state.get('grid', [[[] for _ in range(15)] for _ in range(15)]), simulation_state.get('N', 15), simulation_state.get('M', 15))
+        # Формирование статистики
+        stats = {
+            'step': simulation_state.get('current_step', 0),
+            'rabbits': len(simulation_state.get('rabbits_list', [])),
+            'wolves': len(simulation_state.get('wolves_list', [])),
+            'she_wolves': len(simulation_state.get('she_wolves_list', []))
+        }
+        # Возврат результата с ошибкой или без
+        return {
+            'title': 'The model of movement and death',
+            'year': datetime.now().year,
+            'N': simulation_state.get('N', 15),
+            'M': simulation_state.get('M', 15),
+            'grid_data': grid_data,
+            'stats': stats,
+            'rabbits': input_data['rabbits'],
+            'wolves': input_data['wolves'],
+            'she_wolves': input_data['she_wolves'],
+            'steps': input_data['steps'],
+            'refresh': simulation_state.get('running', False),
+            'error': error if not success else 'Results saved successfully.'
         }
 
     # Сохранение входных данных для возврата в форму
@@ -926,7 +1061,7 @@ def wolf_island_controller(action, N_str, M_str, rabbits_str, wolves_str, she_wo
             'error': 'Incorrect value of steps. Must be an integer from 10 to 240.'
         }
 
-# Проверка первого запуска симуляции
+    # Проверка первого запуска симуляции
     if action == 'start' and not simulation_state.get('running'):
         # Проверка заполнения всех полей
         if not (rabbits and wolves and she_wolves and steps):
