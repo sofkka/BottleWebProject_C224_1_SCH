@@ -30,14 +30,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.py" />
-    <Compile Include="controllers\module2_infection_spread.py" />
-    <Compile Include="controllers\module3_cell_colonies.py">
+    <Compile Include="static\controllers\module1_wolf_island.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="static\controllers\module2_infection_spread.py" />
+    <Compile Include="static\controllers\module3_cells_colonies.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="routes.py" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="controllers\" />
+    <Folder Include="static\controllers\" />
     <Folder Include="static\" />
     <Folder Include="static\content\" />
     <Folder Include="static\fonts\" />
@@ -97,6 +100,7 @@
     <Content Include="static\scripts\jquery.validate.unobtrusive.js" />
     <Content Include="static\scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="static\scripts\modernizr-2.6.2.js" />
+    <Content Include="static\scripts\module3.js" />
     <Content Include="static\scripts\respond.js" />
     <Content Include="static\scripts\respond.min.js" />
     <Content Include="static\scripts\_references.js" />
