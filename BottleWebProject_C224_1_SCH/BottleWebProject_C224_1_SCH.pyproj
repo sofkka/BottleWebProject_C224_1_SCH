@@ -67,6 +67,9 @@
     <Content Include="static\content\style_wolf_island.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="static\scripts\module2_infection_spread.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="static\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="static\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="static\fonts\glyphicons-halflings-regular.ttf" />

@@ -3,34 +3,27 @@
     display: flex;
     justify-content: space-between;
     max-width: 800px;
-    margin: 0 auto;
-    margin-top: 50px;
-    align-items: flex-start;
-    justify-content: center;
 }
 
-/* Стили для левой колонки (параметры) внутри .infection-spread */
+/* Styles for the left column (controls) */
 .infection-spread .controls {
-    flex: 1;
-    margin-right: 20px;
-    text-align: left;
+    margin-right: 25px;
+    text-align: center;
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    align-items: center;
+    justify-content: center;
 }
 
     .infection-spread .controls label {
         color: #445508;
         font-size: 18px;
         white-space: nowrap;
-        margin-right: 15px;
+        margin-bottom: 10px;
     }
 
 .infection-spread .range-limits {
     color: #445508;
     font-size: 18px;
-    white-space: nowrap;
     margin: 0 10px;
 }
 
@@ -41,10 +34,7 @@
 
 /* Стили для центрирования field-value */
 .infection-spread .field-value-wrapper {
-    width: 150px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
+    margin: 10px auto;
     text-align: center;
     font-weight: bold;
 }
@@ -72,8 +62,8 @@
 }
 
 .infection-spread .grid-cell {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     border: 1px solid #F4A261;
     display: inline-block;
     background-color: #FFE4D6;
@@ -96,6 +86,8 @@
 
     .two-buttons button {
         width: 200px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
 .infection-spread .slider-row {
@@ -103,6 +95,7 @@
     align-items: center;
     gap: 10px;
     margin-bottom: 10px;
+    justify-content: center;
 }
 
 .infection-spread .conte-container {
@@ -126,9 +119,8 @@ html {
 
 .theory-link {
     text-align: center;
-    margin: 10px 0 20px 0;
+    margin: 20px 0;
     font-size: 16px;
-    color: #445508;
 }
 
     .theory-link a {
@@ -154,12 +146,31 @@ html {
 
 #vero-klet-avt {
     display: flex;
-    justify-content: center;
     align-items: center;
+    gap: 20px;
 }
 
     #vero-klet-avt img {
         width: 250px;
         height: 250px;
-        margin: 20px;
     }
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Simulation message */
+.simulation-message {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #A9D6A9;
+    color: #445508;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+}
