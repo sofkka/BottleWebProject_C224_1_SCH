@@ -31,23 +31,23 @@
             Parameter a the number of neighbors to reproduce (1-8): 
             <select class="parameters" name="neighbors_reproduce" id="neighborsReproduce">
                 % for i in range(1, 9):
-                    <option value="{{ i }}">{{ i }}</option>
+                   <option value="{{ i }}" {{ 'selected' if i == 2 else '' }}>{{ i }}</option>
                 % end
             </select>
         </p>
         <p class="leader">
-            Parameter b fewer neighbors (2-8): 
+            Parameter b fewer neighbors (2-9): 
             <select class="parameters" name="fewer_neighbors" id="fewerNeighbors">
                 % for i in range(2, 9):
-                    <option value="{{ i }}">{{ i }}</option>
+                    <option value="{{ i }}" {{ 'selected' if i == 3 else '' }}>{{ i }}</option>
                 % end
             </select>
         </p>
         <p class="leader">
-            Parameter c more neighbors (1-7): 
+            Parameter c more neighbors (1-8): 
             <select class="parameters" name="more_neighbors" id="moreNeighbors">
                 % for i in range(1, 8):
-                    <option value="{{ i }}">{{ i }}</option>
+                    <option value="{{ i }}" {{ 'selected' if i == 3 else '' }}>{{ i }}</option>
                 % end
             </select>
         </p>
