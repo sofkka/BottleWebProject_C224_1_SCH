@@ -4,64 +4,91 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    % if refresh:
+        <meta http-equiv="refresh" content="1">
+    % end
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="static/content/style_wolf_island.css">
+    <link rel="stylesheet" href="/static/content/style_wolf_island.css">
 </head>
 <body>
     <div class="content-wrapper">
         <h2>{{ title }}</h2>
 
-        <div class="simulation-wrapper">
-            <div class="left-panel">
-                <h3>Simulation Parameters</h3>
-                <div class="input-row">
-                    <label>Island Width (N, 5-15):</label>
-                    <input type="text">
+        <form method="GET" action="/wolf_island">
+            <input type="hidden" name="save" value="">
+            <div class="simulation-wrapper">
+                <div class="left-panel">
+                    <h3>Simulation Parameters</h3>
+                    <div class="input-row">
+                        <label>Island Width (N, 5-15):</label>
+                        <input type="text" name="N" value="{{N}}">
+                    </div>
+                    <div class="input-row">
+                        <label>Island Height (M, 5-15):</label>
+                        <input type="text" name="M" value="{{M}}">
+                    </div>
+                    <div class="input-row">
+                        <label>Initial Rabbits (1 to N*M/10):</label>
+                        <input type="text" name="rabbits" value="{{rabbits}}">
+                    </div>
+                    <div class="input-row">
+                        <label>Initial Wolves (1 to N*M/10):</label>
+                        <input type="text" name="wolves" value="{{wolves}}">
+                    </div>
+                    <div class="input-row">
+                        <label>Initial She-Wolves (1 to N*M/10):</label>
+                        <input type="text" name="she_wolves" value="{{she_wolves}}">
+                    </div>
+                    <div class="input-row">
+                        <label>Simulation Steps (10-240):</label>
+                        <input type="text" name="steps" value="{{steps}}">
+                    </div>
+                    <div class="action-buttons">
+                        <button type="submit" name="action" value="generate">Generate random values</button>
+                    </div>
+                    <div class="action-buttons">
+                        <button type="submit" name="action" value="reset">Reset</button>
+                        <button type="submit" name="action" value="start">Start</button>
+                    </div>
                 </div>
-                <div class="input-row">
-                    <label>Island Height (M, 5-15):</label>
-                    <input type="text">
+                <div class="middle-panel">
+                    <h3>Population Statistics</h3>
+                    <div class="stats">
+                        <p>Simulation step: {{stats['step']}}</p>
+                        <p>Rabbits: {{stats['rabbits']}}</p>
+                        <p>Wolves: {{stats['wolves']}}</p>
+                        <p>She-Wolves: {{stats['she_wolves']}}</p>
+                    </div>
+                    <button type="submit" class="save-button" name="action" value="save">Save to Json</button>
+                    <button class="about-button">About Wolf Island</button>
                 </div>
-                <div class="input-row">
-                    <label>Initial Rabbits (1 to N*M/10):</label>
-                    <input type="text">
-                </div>
-                <div class="input-row">
-                    <label>Initial Wolves (1 to N*M/10):</label>
-                    <input type="text">
-                </div>
-                <div class="input-row">
-                    <label>Initial She-Wolves (1 to N*M/10):</label>
-                    <input type="text">
-                </div>
-                <div class="input-row">
-                    <label>Simulation Steps (10-240):</label>
-                    <input type="text">
-                </div>
-                <div class="action-buttons">
-                    <button>Generate random values</button>
-                </div>
-                <div class="action-buttons">
-                    <button>Reset</button>
-                    <button>Start</button>
+                <div class="right-panel">
+                    <div class="grid">
+                        % for i in range(15):
+                            % for j in range(15):
+                                % if i < N and j < M:
+                                    <div class="cell">
+                                        % if grid_data[i][j] == '/static/images/rabbit.png':
+                                            <img src="/static/images/rabbit.png" alt="rabbit" style="width: 25px; height: 25px;">
+                                        % elif grid_data[i][j] == '/static/images/wolf.png':
+                                            <img src="/static/images/wolf.png" alt="wolf" style="width: 25px; height: 25px;">
+                                        % elif grid_data[i][j] == '/static/images/she_wolf.png':
+                                            <img src="/static/images/she_wolf.png" alt="she_wolf" style="width: 25px; height: 25px;">
+                                        % end
+                                    </div>
+                                % else:
+                                    <div class="cell inactive"></div>
+                                % end
+                            % end
+                        % end
+                    </div>
                 </div>
             </div>
-            <div class="middle-panel">
-                <h3>Population Statistics</h3>
-                <div class="stats">
-                    <p>Simulation step: 0</p>
-                    <p>Rabbits: 0</p>
-                    <p>Wolves: 0</p>
-                    <p>She-Wolves: 0</p>
-                </div>
-                <button class="save-button">Save to Json</button>
-                <button class="about-button">About Wolf Island</button>
-            </div>
-            <div class="right-panel">
-                <div class="grid"></div>
-            </div>
-        </div>
+            % if error:
+                <div id="error-message" style="color: red; text-align: center; margin-top: 10px;">{{error}}</div>
+            % end
+        </form>
 
         <div class="about-section">
             <h3 class="about-title">About Wolf Island</h3>
@@ -70,10 +97,18 @@
         </div>
     </div>
 
-    <script>
-        document.querySelector('.about-button').addEventListener('click', function() {
-            document.querySelector('.about-section h3').scrollIntoView({ behavior: 'smooth' });
-        });
-    </script>
+<script>
+    document.querySelector('.about-button').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.querySelector('.about-section h2').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    const errorMessage = document.getElementById('error-message');
+    if (errorMessage && errorMessage.textContent.includes('Cannot save results during simulation')) {
+        setTimeout(() => {
+            errorMessage.style.display = 'none';
+        }, 10000);
+    }
+</script>
 </body>
 </html>
