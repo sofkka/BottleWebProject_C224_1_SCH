@@ -147,10 +147,9 @@ h1 {
     min-width: 200px;
     margin-bottom: 20px;
 }
-    }
 
 .jumbotron {
-    background-color: white;
+    background-color: #FFF5F0;
     border-radius: 0px;
     box-shadow: 0;
     text-align: left;

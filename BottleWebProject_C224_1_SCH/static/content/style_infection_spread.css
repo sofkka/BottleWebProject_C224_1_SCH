@@ -3,48 +3,33 @@
     display: flex;
     justify-content: space-between;
     max-width: 800px;
-    margin: 0 auto;
-    margin-top: 50px;
-    align-items: flex-start;
-    justify-content: center;
 }
 
-/* Styles for the left column (controls) inside .infection-spread */
+/* Styles for the left column (controls) */
 .infection-spread .controls {
-    flex: 1;
-    margin-right: 20px;
-    text-align: left;
+    margin-right: 25px;
+    text-align: center;
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    align-items: center;
+    justify-content: center;
 }
 
     .infection-spread .controls label {
         color: #445508;
         font-size: 18px;
         white-space: nowrap;
-        margin-right: 15px;
+        margin-bottom: 10px;
     }
 
 .infection-spread .range-limits {
     color: #445508;
     font-size: 18px;
-    white-space: nowrap;
     margin: 0 10px;
-}
-
-.infection-spread #field-size {
-    width: 150px;
-    vertical-align: middle;
 }
 
 /* Center field-value */
 .infection-spread .field-value-wrapper {
-    width: 150px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
+    margin: 10px auto;
     text-align: center;
     font-weight: bold;
 }
@@ -54,49 +39,35 @@
     font-size: 18px;
 }
 
-/* Styles for the right column (grid) inside .infection-spread */
-.infection-spread .grid-wrapper {
-    display: flex;
-    justify-content: center;
-    background: none;
+/* Styles for the right column (grid) */
+.infection-spread .grid-wr {
+    margin: auto 0;
+    background-color: none;
 }
 
 .infection-spread .grid-container {
     border: 2px solid #F4A261;
     background-color: #FFE4D6;
-    padding: 10px; /* Remove padding to fit cells tightly */
-    display: flex;
-    flex-direction: column;
-    align-items: stretch; /* Stretch rows to fill container */
-    width: auto; /* Allow dynamic width based on content */
-    height: auto; /* Allow dynamic height based on content */
+    padding: 5px;
 }
 
 .infection-spread .grid-row {
     display: flex;
-    flex-wrap: nowrap;
-    align-items: stretch; /* Ensure rows stretch horizontally */
 }
 
 .infection-spread .grid-cell {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     border: 1px solid #F4A261;
     background-color: #FFE4D6;
-    box-sizing: border-box; /* Include border in width/height */
-    position: relative;
-    z-index: 1;
-    margin: 0; /* Remove any margins for tight fit */
 }
 
     .infection-spread .grid-cell.infected {
         background-color: #F4A261;
-        z-index: 2;
     }
 
     .infection-spread .grid-cell.immune {
         background-color: #A9D6A9;
-        z-index: 2;
     }
 
 /* Buttons styling */
@@ -108,6 +79,8 @@
 
     .two-buttons button {
         width: 200px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
 /* Slider row styling */
@@ -116,39 +89,24 @@
     align-items: center;
     gap: 10px;
     margin-bottom: 10px;
+    justify-content: center;
 }
 
 .infection-spread .conte-container {
     display: flex;
-    flex-direction: row;
-}
-
-.infection-spread .slider-container {
-    display: block;
-}
-
-#button2:hover {
-    cursor: default;
-    background-color: #FFDAB9;
-}
-
-/* Smooth scrolling for anchors */
-html {
-    scroll-behavior: smooth;
+    align-items: center;
 }
 
 /* Theory link styling */
 .theory-link {
     text-align: center;
-    margin: 10px 0 20px 0;
+    margin: 20px 0;
     font-size: 16px;
-    color: #445508;
 }
 
     .theory-link a {
         color: #FE8E66;
         text-decoration: none;
-        transition: color 0.3s ease;
     }
 
         .theory-link a:hover {
@@ -156,25 +114,34 @@ html {
             text-decoration: underline;
         }
 
-.link-to-theory {
-    display: flex;
-    justify-content: center;
-}
-
-    .link-to-theory p {
-        margin: 20px;
-        margin-left: 200px;
-    }
-
 /* Probabilistic Cellular Automaton section */
 #vero-klet-avt {
     display: flex;
-    justify-content: center;
     align-items: center;
+    gap: 20px;
 }
 
     #vero-klet-avt img {
         width: 250px;
         height: 250px;
-        margin: 20px;
     }
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Simulation message */
+.simulation-message {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #A9D6A9;
+    color: #445508;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+}

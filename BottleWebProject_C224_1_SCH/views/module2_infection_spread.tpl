@@ -6,55 +6,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
-<!-- Page title and link to theory section -->
-<h2>{{ title }}.</h2>
+<h2>{{ title }}</h2>
 <div class="link-to-theory">
     <h3>{{ message }}</h3>
     <p class="theory-link"><a href="#theory-section">Read theory</a></p>
 </div>
 
-<!-- Main container for infection spread simulation -->
-<div class="infection-spread">
+<div class="infection-spread" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
     <div class="container">
-        <!-- Controls section with form for grid size selection -->
         <div class="controls">
-            <form method="GET" action="/infection_spread">
-                <div class="conte-container">
-                    <label for="field-size">Choose the field size (odd):</label>
-                    <div class="slider-row">
-                        <div class="slider-container">
-                            <div class="conte-container">
-                                <span class="range-limits">3</span>
-                                <input type="range" id="field-size" name="size" min="3" max="15" value="{{initial_size}}" step="2" onchange="this.form.submit()">
-                                <span class="range-limits">15</span>
-                            </div>
-                            <div class="field-value-wrapper">
-                                <span id="field-value">{{initial_size}}</span>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Defines a form for selecting the grid size, submitting via GET to the '/infection_spread' route. -->
+            <form id="size-form" method="GET" action="/infection_spread">
+                <label for="field-size">Choose the field size (odd):</label>
+                <div class="slider-row">
+                    <span class="range-limits">3</span>
+                    <input type="range" id="field-size" name="size" min="3" max="15" value="{{initial_size}}" step="2">
+                    <span class="range-limits">15</span>
                 </div>
-                <br>
-                <!-- Buttons for starting simulation and saving grid state -->
+                <div class="field-value-wrapper">
+                    <span id="field-value">{{initial_size}}</span>
+                </div>
                 <div class="two-buttons">
-                    <button type="submit" class="buttons" name="action" value="start">Start</button>
-                    <button type="submit" class="buttons" id="button2" name="saveToJson" value="saveToJson">Save to JSON</button>
+                    <button type="button" class="buttons" id="start-button">Start</button>
+                    <button type="button" class="buttons" id="save-button">Save to JSON</button>
+                </div>
+                <div class="two-buttons">
+                    <button type="button" class="buttons" id="reset-button" style="display: none;">Reset</button>
                 </div>
             </form>
         </div>
-        <!-- Grid display section -->
-        <div class="grid-wrapper">
-            <div class="grid-container" id="grid" style="width: {{initial_size * 32}+10}px; height: {{initial_size * 32}+10}px;">
-                % for i in range(initial_size):
-                    <div class="grid-row">
-                        % for j in range(initial_size):
-                            <div class="grid-cell"></div>
-                        % end
-                    </div>
-                % end
-            </div>
+
+        <div class="grid-wr">
+            <div class="grid-container" id="grid"></div>
         </div>
     </div>
+
+    <div class="simulation-message" id="simulation-message">
+        Simulation finished, you can start again
+    </div>
+
+    <span id="timer">00:00</span>
 </div>
 
 <!-- Theory section explaining the model and algorithm -->
@@ -67,8 +58,7 @@
     <p>The model operates as a Probabilistic Cellular Automaton, where each cell represents a patch of skin and can be in one of three states: Healthy (H), Infected (I), or Resistant (R). The central cell is initially infected, and the infection spreads stochastically: an infected cell can infect any of its four adjacent healthy neighbors with a probability of 0.5 per time step. After 6 time units, an infected cell becomes resistant, gaining immunity for 4 time units, after which it returns to a healthy state. The simulation updates all cells synchronously, tracking their states and timers to reflect the infection's progression.</p>
     <br>
     <p>Users can configure the grid size (n, odd), observe the infection's spread in real-time, and save the results for analysis. The model provides insights into stochastic processes, epidemic dynamics, and the impact of immunity, making it a valuable tool for studying probabilistic systems and their applications in biological contexts.</p>
-
-    <!-- Probabilistic Cellular Automaton description with image -->
+    
     <div id="vero-klet-avt">
         <div>
             <br><h3>Model: Probabilistic Cellular Automaton</h3>
@@ -82,10 +72,9 @@
             </ul>
             <p>PCAs are widely used in fields like epidemiology, ecology, and physics to model complex systems where stochastic processes play a critical role.</p>
         </div>
-        <img src="static\images\vero_klet_avtomat.png" alt="Image vero_klet_avtomat">
+        <img src="/static/images/vero_klet_avtomat.png" alt="Probabilistic Cellular Automaton">
     </div>
 
-    <!-- Algorithm description -->
     <br><h3>Algorithm for Solving the Problem</h3>
     <p>The simulation of infection spread (ringworm) on a skin patch is implemented using a Probabilistic Cellular Automaton. The algorithm models the infection dynamics on an n * n grid, where n is odd, with the central cell initially infected. The following steps outline the process:</p>
     <ol>
@@ -96,7 +85,6 @@
             <li>Assign a timer to each cell to track the time spent in its current state (I or R).</li>
         </ul>
         <br>
-
         <b><li>Grid Update (at each time step):</li></b>
         <ul>
             <li>State Transitions:</li>
@@ -112,7 +100,6 @@
             <li>Timer Update: Increment the timer for all Infected (I) and Resistant (R) cells.</li>
         </ul>
         <br>
-
         <b><li>Output:</li></b>
         <p>At each time step, display the grid, marking cells as:</p>
         <ul>
@@ -121,7 +108,6 @@
             <li>H: Healthy</li>
         </ul>
         <br>
-
         <b><li>Simulation:</li></b>
         <ul>
             <li>Run the simulation for a specified number of steps (e.g., 15).</li>
@@ -130,3 +116,14 @@
     </ol>
     <p>This algorithm ensures accurate modeling of the infection spread while adhering to the probabilistic and temporal rules specified.</p>
 </div>
+
+
+<!-- Injects server-side data into global variables for use in the external JavaScript file. -->
+<script>
+    window.simulationSteps = {{ !simulation_steps_json }};
+    window.gridSize = {{ initial_size }};
+    window.finalGridState = {{ !final_grid_json }};
+    window.allCellsHealthy = {{ 'true' if all_healthy else 'false' }};
+</script>
+
+<script src="/static/scripts/module2_infection_spread.js"></script>
