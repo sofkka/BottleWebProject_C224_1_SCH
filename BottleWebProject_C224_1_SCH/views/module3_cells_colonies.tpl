@@ -58,8 +58,8 @@
         </div>
     </div>
     </div>
-<div class="theory-section">
-    <p class="leader">Theory</p>
+<div class="theory-section about-section">
+    <p class="leader about-title">Theory</p>
     <p class="lead">
         Develop a program that simulates the life of generations of hypothetical colonies of living cells that survive, multiply or die 
         in accordance with the following rules:
