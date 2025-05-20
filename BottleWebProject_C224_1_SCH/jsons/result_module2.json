@@ -1,1 +1,106 @@
-
+{
+    "2025-05-21": [
+        {
+            "time": "01:25:10",
+            "input_parameters": {
+                "grid_size": 3
+            },
+            "simulation_results": {
+                "simulation_step": 15,
+                "healthy_cells": 9,
+                "infected_cells": 0,
+                "resistant_cells": 0,
+                "grid_state": [
+                    "H H H ",
+                    "H H H ",
+                    "H H H "
+                ]
+            },
+            "status": "Infection eradicated"
+        },
+        {
+            "time": "01:25:03",
+            "input_parameters": {
+                "grid_size": 3
+            },
+            "simulation_results": {
+                "simulation_step": 11,
+                "healthy_cells": 1,
+                "infected_cells": 0,
+                "resistant_cells": 8,
+                "grid_state": [
+                    "R R R ",
+                    "R H R ",
+                    "R R R "
+                ]
+            },
+            "status": "Infection eradicated"
+        },
+        {
+            "time": "01:24:50",
+            "input_parameters": {
+                "grid_size": 3
+            },
+            "simulation_results": {
+                "simulation_step": 2,
+                "healthy_cells": 3,
+                "infected_cells": 6,
+                "resistant_cells": 0,
+                "grid_state": [
+                    "I H H ",
+                    "I I I ",
+                    "H I I "
+                ]
+            },
+            "status": "Simulation in progress"
+        },
+        {
+            "time": "01:23:45",
+            "input_parameters": {
+                "grid_size": 9
+            },
+            "simulation_results": {
+                "simulation_step": 4,
+                "healthy_cells": 63,
+                "infected_cells": 18,
+                "resistant_cells": 0,
+                "grid_state": [
+                    "H H H H H H H H H ",
+                    "H H H H H H H H H ",
+                    "H H H I I I I H H ",
+                    "H H I I I I H H H ",
+                    "H H H I I I I I H ",
+                    "H H I I I I I H H ",
+                    "H H H H H H H H H ",
+                    "H H H H H H H H H ",
+                    "H H H H H H H H H "
+                ]
+            },
+            "status": "Simulation in progress"
+        },
+        {
+            "time": "01:23:02",
+            "input_parameters": {
+                "grid_size": 9
+            },
+            "simulation_results": {
+                "simulation_step": 0,
+                "healthy_cells": 80,
+                "infected_cells": 1,
+                "resistant_cells": 0,
+                "grid_state": [
+                    "H H H H H H H H H ",
+                    "H H H H H H H H H ",
+                    "H H H H H H H H H ",
+                    "H H H H H H H H H ",
+                    "H H H H I H H H H ",
+                    "H H H H H H H H H ",
+                    "H H H H H H H H H ",
+                    "H H H H H H H H H ",
+                    "H H H H H H H H H "
+                ]
+            },
+            "status": "Simulation in progress"
+        }
+    ]
+}

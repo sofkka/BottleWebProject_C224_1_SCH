@@ -10,7 +10,7 @@ import uuid
 
 import json
 from bottle import request, response, route, view, static_file
-from static.controllers.module2_infection_spread import grid_to_json, simulate_all_steps, initialize_grid, save_grid_state
+from static.controllers.module2_infection_spread import grid_to_json, simulate_all_steps, initialize_grid, save_to_json
 from datetime import datetime
 
 from static.controllers.module1_wolf_island import wolf_island_controller
@@ -86,9 +86,14 @@ def module2_infection_spread():
     except ValueError:
         size = 9
 
-    # Обрабатывается запрос на сохранение состояния сетки в JSON.
+    # Обработка запроса на сохранение
     if save:
-        return "The result is saved in JSON"
+        try:
+            grid = json.loads(continue_from)
+            success, message = save_to_json(grid, size, step, step)
+            return json.dumps({'success': success, 'message': message})
+        except Exception as e:
+            return json.dumps({'success': False, 'message': str(e)})
 
     # Загружается сетка для симуляции: либо продолжается из переданного состояния, либо создаётся новая.
     if continue_from:
@@ -96,9 +101,6 @@ def module2_infection_spread():
         try:
             # Параметр continue_from декодируется из JSON в двумерный список (сетку).
             continue_grid = json.loads(continue_from)
-
-            # Создаётся новая сетка с переданными параметрами
-            grid = [[{'state': cell['state'], 'timer': cell['timer']} for cell in row] for row in continue_grid]
 
         # Обработка исключения JSONDecodeError, возникающего при некорректном формате continue_from.
         except json.JSONDecodeError:

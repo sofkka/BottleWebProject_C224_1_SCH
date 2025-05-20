@@ -186,7 +186,26 @@ document.getElementById('reset-button').addEventListener('click', () => {
 
 // —лушатель событий кнопки Save to JSON дл€ обработки сохранени€ текущего состо€ни€ сетки.
 document.getElementById('save-button').addEventListener('click', () => {
-    alert('The grid state at this stage of the simulation will be saved in JSON!');
+    // ѕолучаем текущий шаг симул€ции из глобальной переменной
+    const currentStep = stepIndex;
+
+    // ѕолучаем текущее состо€ние сетки из массива steps по индексу текущего шага
+    const currentGrid = steps[currentStep];
+
+    // ќтправл€ем POST-запрос на сервер с параметрами
+    fetch(`/infection_spread?size=${size}&continue_from=${encodeURIComponent(JSON.stringify(currentGrid))}&save=true&step=${currentStep}`)
+        // ќбрабатываем ответ от сервера как текстовые данные
+        .then(response => response.text())
+        // ¬ыводим сообщение от сервера в alert
+        .then(() => {
+            // Success message in English
+            alert('Data successfully saved to JSON!');
+        })
+        .catch(error => {
+            // Enhanced error message
+            console.error('Save error:', error);
+            alert('Failed to save data. Please check console for details.');
+        });
 });
 
 // —лушатель событий ползунка размера сетки дл€ обработки изменений размера и обновлени€ отображаемого значени€ в реальном времени.
