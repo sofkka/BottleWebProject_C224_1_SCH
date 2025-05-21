@@ -1,0 +1,22 @@
+[
+    {
+        "record_id": "ff9d3090-a0c0-43ce-8ba6-f6f5a0eb8709",
+        "width": 6,
+        "height": 6,
+        "a": 2,
+        "b": 3,
+        "c": 3,
+        "initial_cell_count": 7,
+        "datetime": "2025-05-21 12:17:22"
+    },
+    {
+        "record_id": "a786ba69-9aba-4153-b5c9-c4655dee9529",
+        "width": 15,
+        "height": 15,
+        "a": 2,
+        "b": 3,
+        "c": 3,
+        "initial_cell_count": 44,
+        "datetime": "2025-05-20 13:00:03"
+    }
+]
