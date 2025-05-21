@@ -50,6 +50,7 @@
     <Folder Include="views\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="jsons\module3.json" />
     <Content Include="jsons\result_module2.json">
       <SubType>Code</SubType>
     </Content>
