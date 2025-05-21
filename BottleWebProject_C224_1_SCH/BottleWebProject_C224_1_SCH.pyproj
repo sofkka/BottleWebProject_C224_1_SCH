@@ -44,6 +44,9 @@
     <Compile Include="static\tests\test_module1_wolf_island.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="static\tests\test_module2_infection_spread.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="static\tests\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -63,9 +66,6 @@
     <Folder Include="views\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="jsons\result_module2.json">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="requirements.txt" />
     <Content Include="static\content\bootstrap.css" />
     <Content Include="static\content\bootstrap.min.css" />
