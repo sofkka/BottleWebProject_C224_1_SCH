@@ -22,27 +22,27 @@
                     <h3>Simulation Parameters</h3>
                     <div class="input-row">
                         <label>Island Width (N, 5-15):</label>
-                        <input type="text" name="N" value="{{N}}">
+                        <input type="text" name="N" value="{{N}}" maxlength="2">
                     </div>
                     <div class="input-row">
                         <label>Island Height (M, 5-15):</label>
-                        <input type="text" name="M" value="{{M}}">
+                        <input type="text" name="M" value="{{M}}" maxlength="2">
                     </div>
                     <div class="input-row">
                         <label>Initial Rabbits (1 to N*M/10):</label>
-                        <input type="text" name="rabbits" value="{{rabbits}}">
+                        <input type="text" name="rabbits" value="{{rabbits}}" maxlength="2">
                     </div>
                     <div class="input-row">
                         <label>Initial Wolves (1 to N*M/10):</label>
-                        <input type="text" name="wolves" value="{{wolves}}">
+                        <input type="text" name="wolves" value="{{wolves}}" maxlength="2">
                     </div>
                     <div class="input-row">
                         <label>Initial She-Wolves (1 to N*M/10):</label>
-                        <input type="text" name="she_wolves" value="{{she_wolves}}">
+                        <input type="text" name="she_wolves" value="{{she_wolves}}" maxlength="2">
                     </div>
                     <div class="input-row">
                         <label>Simulation Steps (10-240):</label>
-                        <input type="text" name="steps" value="{{steps}}">
+                        <input type="text" name="steps" value="{{steps}}" maxlength="3">
                     </div>
                     <div class="action-buttons">
                         <button type="submit" name="action" value="generate">Generate random values</button>
