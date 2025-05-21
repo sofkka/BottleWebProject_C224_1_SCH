@@ -17,6 +17,7 @@ from static.controllers.module1_wolf_island import wolf_island_controller
 from static.controllers.module2_infection_spread import grid_to_json, simulate_all_steps, initialize_grid, save_to_json
 import random
 
+
 @route('/')
 @route('/home')
 @view('index')
