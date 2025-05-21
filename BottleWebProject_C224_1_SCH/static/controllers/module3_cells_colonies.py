@@ -1,3 +1,5 @@
+
+
 import random
 import json
 import os
@@ -5,7 +7,6 @@ import logging
 from bottle import Bottle, route, post, request, response, static_file
 from datetime import datetime
 import uuid
-from routes import *
 
 app = Bottle()
 
@@ -13,7 +14,6 @@ logging.basicConfig(level=logging.DEBUG, filename='server.log', filemode='a',
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
 class GameOfLife:
-    # ... (no changes to the GameOfLife class)
     def __init__(self, width, height, a=2, b=3, c=3):
         self.width = width
         self.height = height
@@ -41,9 +41,8 @@ class GameOfLife:
             for j in range(-1, 2):
                 if i == 0 and j == 0:
                     continue
-                nx, ny = x + i, y + j
-                nx = nx % self.height
-                ny = ny % self.width
+                nx = (x + i) % self.height
+                ny = (y + j) % self.width
                 count += self.grid[nx][ny]
         return count
 
@@ -135,7 +134,7 @@ def update_grid():
                 'b': game.b,
                 'c': game.c,
                 'initial_cell_count': game.initial_cell_count,
-                'datetime': datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Add datetime
+                'datetime': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             })
             start_time = None
             logging.debug(f"Simulation saved on {action}")
@@ -173,7 +172,7 @@ def save_json_to_file():
             'b': int(request.forms.get('b')),
             'c': int(request.forms.get('c')),
             'initial_cell_count': 0,
-            'datetime': datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Add datetime
+            'datetime': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
         grid = json.loads(request.forms.get('grid'))
         logging.debug(f"Received save_json_to_file request: {data}, grid: {grid}")
@@ -214,11 +213,16 @@ def save_simulation_record(record):
             except json.JSONDecodeError:
                 logging.error("Invalid JSON in module3.json, starting fresh")
                 records = []
-    record['datetime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  
+    record['datetime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     records.append(record)
     with open(json_file_path, 'w') as f:
         json.dump(records, f, indent=4, separators=(',', ': '))
     logging.debug(f"Saved simulation record to {json_file_path}")
+
+def reset_game_state():
+    global game, start_time
+    game = None
+    start_time = None
 
 if __name__ == '__main__':
     app.run(host='localhost', port=8080, debug=True)

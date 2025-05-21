@@ -18,7 +18,7 @@
     <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
     <Name>BottleWebProject_C224_1_SCH</Name>
     <RootNamespace>BottleWebProject_C224_1_SCH</RootNamespace>
-    <InterpreterId>Global|PythonCore|3.11</InterpreterId>
+    <InterpreterId>MSBuild|env1|$(MSBuildProjectFullPath)</InterpreterId>
     <TestFramework>unittest</TestFramework>
     <UnitTestPattern>test*.py</UnitTestPattern>
     <UnitTestRootDirectory>static/tests/</UnitTestRootDirectory>
@@ -41,6 +41,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="routes.py" />
+    <Compile Include="static\tests\test_module3.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="static\tests\test_module1_wolf_island.py">
       <SubType>Code</SubType>
     </Compile>
