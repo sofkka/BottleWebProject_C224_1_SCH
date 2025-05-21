@@ -1,0 +1,58 @@
+{
+    "2025-05-20": [
+        {
+            "time": "15:23:41",
+            "input_parameters": {
+                "N": 10,
+                "M": 10,
+                "rabbits": 8,
+                "wolves": 4,
+                "she_wolves": 7,
+                "steps": 60
+            },
+            "simulation_results": {
+                "simulation_step": 60,
+                "rabbits": 0,
+                "wolves": 32,
+                "she_wolves": 54
+            },
+            "status": "Simulation completed successfully"
+        },
+        {
+            "time": "15:27:54",
+            "input_parameters": {
+                "N": 15,
+                "M": 15,
+                "rabbits": 1,
+                "wolves": 1,
+                "she_wolves": 1,
+                "steps": 60
+            },
+            "simulation_results": {
+                "simulation_step": 21,
+                "rabbits": 0,
+                "wolves": 0,
+                "she_wolves": 0
+            },
+            "status": "All animals have died out"
+        },
+        {
+            "time": "15:38:50",
+            "input_parameters": {
+                "N": 6,
+                "M": 6,
+                "rabbits": 2,
+                "wolves": 2,
+                "she_wolves": 2,
+                "steps": 61
+            },
+            "simulation_results": {
+                "simulation_step": 61,
+                "rabbits": 0,
+                "wolves": 13,
+                "she_wolves": 17
+            },
+            "status": "Simulation completed successfully"
+        }
+    ]
+}

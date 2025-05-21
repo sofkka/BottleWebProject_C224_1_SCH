@@ -1,0 +1,46 @@
+{
+    "2025-05-20": [
+        {
+            "time": "15:50:04",
+            "simulation_state": "Simulation from 20.05.2025 at 15:50.\nStop #1. Skin patch state:\nH H H H H H H H H\nH H H H H H H H H\nH H H H H H H H H\nH H H H H H H H H\nH H H H I H H H H\nH H H H H H H H H\nH H H H H H H H H\nH H H H H H H H H\nH H H H H H H H H\nNumber of healthy cells - 80\nNumber of infected cells - 1\nNumber of resistant cells - 0\nTime elapsed since simulation start - 1 steps",
+            "size": 9,
+            "step": 0,
+            "status": "Simulation state saved"
+        },
+        {
+            "time": "15:50:19",
+            "simulation_state": "Simulation from 20.05.2025 at 15:50.\nStop #3. Skin patch state:\nH H H H H H H H H\nH H H H H H H H H\nH H H H H H H H H\nH H H H I I H H H\nH H H I I I H H H\nH H H H H H H H H\nH H H H H H H H H\nH H H H H H H H H\nH H H H H H H H H\nNumber of healthy cells - 76\nNumber of infected cells - 5\nNumber of resistant cells - 0\nTime elapsed since simulation start - 3 steps",
+            "size": 9,
+            "step": 2,
+            "status": "Simulation state saved"
+        },
+        {
+            "time": "15:51:46",
+            "simulation_state": "Simulation from 20.05.2025 at 15:51.\nStop #5. Skin patch state:\nH H H H H H H H H\nH H H H H H H H H\nH H H I I H H H H\nH H H I I I H H H\nH H I I I I I I H\nH H H I I I I H H\nH H H H I H H H H\nH H H H H H H H H\nH H H H H H H H H\nNumber of healthy cells - 65\nNumber of infected cells - 16\nNumber of resistant cells - 0\nTime elapsed since simulation start - 5 steps",
+            "size": 9,
+            "step": 4,
+            "status": "Simulation state saved"
+        },
+        {
+            "time": "15:54:46",
+            "simulation_state": "Simulation from 20.05.2025 at 15:54.\nStop #9. Skin patch state:\nH I I I I I I I H\nI I I I I I I I H\nI I I I I I I I H\nI I I I R I I I I\nI I I I R R I I I\nI I I I R I I I I\nI I I I I I I I I\nH I I I I H I H H\nH H I I I H H H H\nNumber of healthy cells - 14\nNumber of infected cells - 63\nNumber of resistant cells - 4\nTime elapsed since simulation start - 9 steps",
+            "size": 9,
+            "step": 8,
+            "status": "Simulation state saved"
+        },
+        {
+            "time": "15:55:28",
+            "simulation_state": "Simulation from 20.05.2025 at 15:55.\nStop #4. Skin patch state:\nH H H H H H H H H\nH H H H I H H H H\nH H H I I H H H H\nH H I I I I I H H\nH H I I I I I I H\nH H H H I I I H H\nH H H H H H H H H\nH H H H H H H H H\nH H H H H H H H H\nNumber of healthy cells - 64\nNumber of infected cells - 17\nNumber of resistant cells - 0\nTime elapsed since simulation start - 4 steps",
+            "size": 9,
+            "step": 3,
+            "status": "Simulation state saved"
+        },
+        {
+            "time": "15:59:02",
+            "simulation_state": "Simulation from 20.05.2025 at 15:58.\nStop #3. Skin patch state:\nH H H H H H H H H\nH H H H H H H H H\nH H H H H H H H H\nH H H H I I H H H\nH H H H I H H H H\nH H H H I I H H H\nH H H H I H H H H\nH H H H H H H H H\nH H H H H H H H H\nNumber of healthy cells - 75\nNumber of infected cells - 6\nNumber of resistant cells - 0\nTime elapsed since simulation start - 3 steps",
+            "size": 9,
+            "step": 2,
+            "status": "Simulation state saved"
+        }
+    ]
+}
