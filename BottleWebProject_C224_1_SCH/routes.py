@@ -1,3 +1,5 @@
+# -*- coding: cp1251 -*-
+
 """
 Routes and views for the bottle application.
 """
