@@ -1,7 +1,6 @@
-let intervalId = null;// For controlling the auto-play interval
+let intervalId = null; // For controlling the auto-play interval
 
 // Function to update the visual grid display based on current cell states
-
 function updateGridDisplay(grid) {
     const table = document.getElementById('gridTable');
     table.innerHTML = ''; // Clear existing grid
@@ -19,12 +18,13 @@ function updateGridDisplay(grid) {
     adjustCellSizes(); // Adjust cell size dynamically
 }
 
+// Function to update the grid based on user-specified dimensions
 function updateGrid() {
     const width = parseInt(document.getElementById('fieldWidth').value);
     const height = parseInt(document.getElementById('fieldHeight').value);
 
     if (width < 3 || height < 3 || width > 50 || height > 50) {
-        alert('Please enter values between 3 and 50.');
+        alert('Please, send about 3 to 50.');
         return;
     }
 
@@ -45,6 +45,7 @@ function updateGrid() {
 
     adjustCellSizes();
 }
+
 // Function to adjust cell sizes based on container size
 function adjustCellSizes() {
     const gridWrapper = document.querySelector('.grid-wrapper');
@@ -80,7 +81,7 @@ function adjustCellSizes() {
     gridWrapper.style.maxWidth = `${cellSize * width + 40}px`;
 }
 
-/* Rest of the JavaScript unchanged */
+// Function to send requests to the server
 function sendRequest(action, data = {}) {
     const width = document.getElementById('fieldWidth').value;
     const height = document.getElementById('fieldHeight').value;
@@ -98,15 +99,23 @@ function sendRequest(action, data = {}) {
         c: c
     };
 
-    fetch('/update_grid', {
+    console.log(`Send quest: action=${action}, data=`, data);
+
+    return fetch('/update_grid', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams(data)
     })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log('Server:', data);
             if (data.grid) {
                 updateGridDisplay(data.grid);
             }
@@ -118,17 +127,14 @@ function sendRequest(action, data = {}) {
                 clearInterval(intervalId);
                 intervalId = null;
             }
-            if (action === 'save_json') {
-                const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'grid.json';
-                a.click();
-                window.URL.revokeObjectURL(url);
-            }
+            return data;
+        })
+        .catch(error => {
+            console.error('Error qwest:', error);
+            throw error;
         });
 }
+
 // Event handlers for control buttons
 document.getElementById('startBtn').addEventListener('click', () => {
     sendRequest('start');
@@ -143,15 +149,54 @@ document.getElementById('resetBtn').addEventListener('click', () => {
 });
 
 document.getElementById('saveJsonBtn').addEventListener('click', () => {
-    sendRequest('save_json').then(data => {
-        if (data.download_url) {
-            const a = document.createElement('a');
-            a.href = data.download_url;
-            a.download = 'simulation_records.json';
-            a.click();
+    const width = document.getElementById('fieldWidth').value;
+    const height = document.getElementById('fieldHeight').value;
+    const a = document.getElementById('neighborsReproduce').value;
+    const b = document.getElementById('fewerNeighbors').value;
+    const c = document.getElementById('moreNeighbors').value;
+
+    const table = document.getElementById('gridTable');
+    const grid = [];
+    for (let i = 0; i < height; i++) {
+        const row = [];
+        for (let j = 0; j < width; j++) {
+            const cell = table.rows[i].cells[j];
+            row.push(cell.className === 'alive' ? 1 : 0);
         }
-    });
+        grid.push(row);
+    }
+
+    const data = {
+        action: 'save_json_to_file',
+        width: width,
+        height: height,
+        a: a,
+        b: b,
+        c: c,
+        grid: JSON.stringify(grid)
+    };
+
+    fetch('/save_json_to_file', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(data)
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Save to module3.json');
+            } else {
+                alert('Safe error: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('JSON error.');
+        });
 });
+
 
 document.getElementById('gridTable').addEventListener('click', (e) => {
     if (e.target.tagName === 'TD') {

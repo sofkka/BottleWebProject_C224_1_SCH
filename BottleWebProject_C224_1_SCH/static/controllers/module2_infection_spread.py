@@ -1,3 +1,4 @@
+import os
 import random
 import copy
 import json
@@ -178,32 +179,86 @@ def simulate_all_steps(initial_grid, size, max_steps=100):
     return steps, current_grid, all_healthy
 
 
-def save_grid_state(grid, step_count):
+def save_to_json(grid, size, step_count, elapsed_steps):
     """
-        Функция save_grid_state
-        Подготавливает данные сетки для сохранения в формате JSON с добавлением номера шага
-        и временной метки.
+        Функция save_to_json
+        Сохраняет текущее состояние симуляции в JSON-файл с историей всех запусков,
+        организованной по датам. Каждая запись содержит метаданные и состояние сетки.
 
         Принимаемые поля (аргументы):
-        grid - двумерный список, где каждый элемент - список ячеек, каждая ячейка - словарь
-        с ключами 'state' (строка: 'H', 'I', 'R') и 'timer' (целое число).
-        step_count - текущий номер шага симуляции (целое число).
+        grid - текущая двумерная сетка, где каждый элемент - список ячеек, каждая
+        ячейка - словарь с ключами 'state' (строка: 'H', 'I', 'R') и 'timer' (целое число).
+        size - размер сетки (целое число), определяющий количество строк и столбцов.
+        step_count - текущий шаг симуляции (целое число).
+        elapsed_steps - общее количество прошедших шагов (целое число).
 
         Возвращаемые поля:
-        result - строка в формате JSON, содержащая словарь с ключами 'grid' (двумерный список
-        ячеек), 'step_count' (целое число) и 'timestamp' (строка в формате 'день.месяц.год часы:минуты:секунды').
+        Кортеж из двух элементов:
+        - success - булево значение (True, если сохранение прошло успешно, иначе False)
+        - message - строка с описанием результата операции или ошибки
+
+        Формат сохраняемых данных можно посмотреть в файле jsons\result_module2.json
     """
 
-    # Сетка преобразуется в JSON-совместимый формат с помощью функции grid_to_json.
-    grid_json = grid_to_json(grid)
-
-    # Создаётся словарь, содержащий сетку, номер шага и временную метку в формате
-    # 'день.месяц.год часы:минуты:секунды'.
-    data = {
-        'grid': grid_json,
-        'step_count': step_count,
-        'timestamp': datetime.now().strftime('%d.%m.%Y %H:%M:%S')
+    json_path = 'jsons/result_module2.json'
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    current_time = datetime.now().strftime('%H:%M:%S')
+    
+    # Подсчет клеток и формирование компактного представления сетки
+    healthy = infected = resistant = 0
+    grid_state_compact = []
+    for row in grid:
+        row_str = ""
+        for cell in row:
+            state = cell['state']
+            row_str += state
+            row_str += " "
+            if state == 'H':
+                healthy += 1
+            elif state == 'I':
+                infected += 1
+            elif state == 'R':
+                resistant += 1
+        grid_state_compact.append(row_str)
+    
+    # Формирование данных для сохранения
+    save_data = {
+        'time': current_time,
+        'input_parameters': {
+            'grid_size': size,
+        },
+        'simulation_results': {
+            'simulation_step': step_count,
+            'healthy_cells': healthy,
+            'infected_cells': infected,
+            'resistant_cells': resistant,
+            'grid_state': grid_state_compact
+        },
+        'status': 'Simulation in progress' if infected > 0 else 'Infection eradicated'
     }
+    
+    # Создание директории при необходимости
+    os.makedirs(os.path.dirname(json_path), exist_ok=True)
+    
+    # Загрузка существующих данных
+    json_data = {}
+    if os.path.exists(json_path):
+        try:
+            with open(json_path, 'r', encoding='utf-8') as file:
+                json_data = json.load(file)
+        except (json.JSONDecodeError, IOError):
+            json_data = {}
+    
+    # Добавление новой записи
+    if current_date not in json_data:
+        json_data[current_date] = []
+    json_data[current_date].insert(0, save_data)
+    
+    # Сохранение обновленных данных
+    try:
+        with open(json_path, 'w', encoding='utf-8') as file:
+            json.dump(json_data, file, ensure_ascii=False, indent=4)
+        return True, 'Saved successfully'
+    except IOError as e:
+        return False, f'Failed to save to JSON: {str(e)}'
 
-    # Словарь сериализуется в строку JSON с отступами для читаемости.
-    return json.dumps(data, indent=2)
