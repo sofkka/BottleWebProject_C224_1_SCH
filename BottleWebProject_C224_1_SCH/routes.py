@@ -1,3 +1,5 @@
+# -*- coding: cp1251 -*-
+
 """
 Routes and views for the bottle application.
 """
@@ -7,12 +9,6 @@ from datetime import datetime, timedelta
 import json
 import os
 import uuid
-
-import json
-from bottle import request, response, route, view, static_file
-from static.controllers.module2_infection_spread import grid_to_json, simulate_all_steps, initialize_grid, save_grid_state
-from datetime import datetime
-
 from static.controllers.module1_wolf_island import wolf_island_controller
 import random
 
@@ -56,227 +52,111 @@ def wolf_island():
     steps = request.query.get('steps', '')
     return wolf_island_controller(action, N, M, rabbits, wolves, she_wolves, steps)
 
+@route('/wolf_island', method=['GET'])
+@view('module1_wolf_island')
+def wolf_island():
+    action = request.query.get('action', '')
+    N = request.query.get('N', '')
+    M = request.query.get('M', '')
+    rabbits = request.query.get('rabbits', '')
+    wolves = request.query.get('wolves', '')
+    she_wolves = request.query.get('she_wolves', '')
+    steps = request.query.get('steps', '')
+    return wolf_island_controller(action, N, M, rabbits, wolves, she_wolves, steps)
+
 @route('/infection_spread')
 @view('module2_infection_spread')
 def module2_infection_spread():
-    # ����������� �������� 'size' �� GET-�������, �������� ������ �����. ���� �������� ����������� - 9
+    # РР·РІР»РµРєР°РµС‚СЃСЏ РїР°СЂР°РјРµС‚СЂ 'size' РёР· GET-Р·Р°РїСЂРѕСЃР°, Р·Р°РґР°СЋС‰РёР№ СЂР°Р·РјРµСЂ СЃРµС‚РєРё. Р•СЃР»Рё РїР°СЂР°РјРµС‚СЂ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ - 9
     size = request.GET.get('size', '9')
 
-    # ����������� �������� 'continue_from', ���������� JSON-������������� ����� ��� ����������� ���������.
-    # ���� �������� ����������� - None.
+    # РР·РІР»РµРєР°РµС‚СЃСЏ РїР°СЂР°РјРµС‚СЂ 'continue_from', СЃРѕРґРµСЂР¶Р°С‰РёР№ JSON-РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ СЃРµС‚РєРё РґР»СЏ РїСЂРѕРґРѕР»Р¶РµРЅРёСЏ СЃРёРјСѓР»СЏС†РёРё.
+    # Р•СЃР»Рё РїР°СЂР°РјРµС‚СЂ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ - None.
     continue_from = request.GET.get('continue_from')
 
-    # ����������� �������� 'save', ������������, ����� �� ��������� ��������� ����� � JSON.
-    # �������� 'true' � ������� ������������� � ������ True, ����� False.
+    # РџСЂРѕРІРµСЂСЏРµС‚СЃСЏ РїР°СЂР°РјРµС‚СЂ 'save', РѕРїСЂРµРґРµР»СЏСЋС‰РёР№, РЅСѓР¶РЅРѕ Р»Рё СЃРѕС…СЂР°РЅРёС‚СЊ СЃРѕСЃС‚РѕСЏРЅРёРµ СЃРµС‚РєРё РІ JSON.
+    # Р—РЅР°С‡РµРЅРёРµ 'true' РІ Р·Р°РїСЂРѕСЃРµ РїСЂРµРѕР±СЂР°Р·СѓРµС‚СЃСЏ РІ Р±СѓР»РµРІРѕ True, РёРЅР°С‡Рµ False.
     save = request.GET.get('save', 'false') == 'true'
 
-    # ����������� �������� 'step', ����������� ������� ��� ���������. ���� �������� �����������, ������������ 0.
+    # РР·РІР»РµРєР°РµС‚СЃСЏ РїР°СЂР°РјРµС‚СЂ 'step', СѓРєР°Р·С‹РІР°СЋС‰РёР№ С‚РµРєСѓС‰РёР№ С€Р°Рі СЃРёРјСѓР»СЏС†РёРё. Р•СЃР»Рё РїР°СЂР°РјРµС‚СЂ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚, РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ 0.
     step = int(request.GET.get('step', '0'))
 
-    # ����������� ������������ ��������� size � ������������� � ����� �����.
+    # РџСЂРѕРІРµСЂСЏРµС‚СЃСЏ РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РїР°СЂР°РјРµС‚СЂР° size Рё РїСЂРµРѕР±СЂР°Р·СѓРµС‚СЃСЏ РІ С†РµР»РѕРµ С‡РёСЃР»Рѕ.
     try:
-        # �������� size ������������� � ����� �����.
+        # РџР°СЂР°РјРµС‚СЂ size РїСЂРµРѕР±СЂР°Р·СѓРµС‚СЃСЏ РІ С†РµР»РѕРµ С‡РёСЃР»Рѕ.
         size = int(size)
 
-        # ���� size �������� ������ ������ ��� ������� �� ���������� �������� (3�15) - size = 9.
+        # Р•СЃР»Рё size СЏРІР»СЏРµС‚СЃСЏ С‡С‘С‚РЅС‹Рј С‡РёСЃР»РѕРј РёР»Рё РІС‹С…РѕРґРёС‚ Р·Р° РґРѕРїСѓСЃС‚РёРјС‹Р№ РґРёР°РїР°Р·РѕРЅ (3вЂ“15) - size = 9.
         if size % 2 == 0 or size < 3 or size > 15:
             size = 9
 
-    # ��������� ���������� ValueError, ����������� ��� ������������ ������� size.
+    # РћР±СЂР°Р±РѕС‚РєР° РёСЃРєР»СЋС‡РµРЅРёСЏ ValueError, РІРѕР·РЅРёРєР°СЋС‰РµРµ РїСЂРё РЅРµРєРѕСЂСЂРµРєС‚РЅРѕРј С„РѕСЂРјР°С‚Рµ size.
     except ValueError:
         size = 9
 
-    # �������������� ������ �� ���������� ��������� ����� � JSON.
+    # РћР±СЂР°Р±РѕС‚РєР° Р·Р°РїСЂРѕСЃР° РЅР° СЃРѕС…СЂР°РЅРµРЅРёРµ
     if save:
-        return "The result is saved in JSON"
-
-    # ����������� ����� ��� ���������: ���� ������������ �� ����������� ���������, ���� �������� �����.
-    if continue_from:
-        # ����������� ����������� ����������� ��������� �� ����������� ���������.
         try:
-            # �������� continue_from ������������ �� JSON � ��������� ������ (�����).
+            grid = json.loads(continue_from)
+            success, message = save_to_json(grid, size, step, step)
+            return json.dumps({'success': success, 'message': message})
+        except Exception as e:
+            return json.dumps({'success': False, 'message': str(e)})
+
+    # Р—Р°РіСЂСѓР¶Р°РµС‚СЃСЏ СЃРµС‚РєР° РґР»СЏ СЃРёРјСѓР»СЏС†РёРё: Р»РёР±Рѕ РїСЂРѕРґРѕР»Р¶Р°РµС‚СЃСЏ РёР· РїРµСЂРµРґР°РЅРЅРѕРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ, Р»РёР±Рѕ СЃРѕР·РґР°С‘С‚СЃСЏ РЅРѕРІР°СЏ.
+    if continue_from:
+        # РџСЂРѕРІРµСЂСЏРµС‚СЃСЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РїСЂРѕРґРѕР»Р¶РµРЅРёСЏ СЃРёРјСѓР»СЏС†РёРё РёР· РїРµСЂРµРґР°РЅРЅРѕРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ.
+        try:
+            # РџР°СЂР°РјРµС‚СЂ continue_from РґРµРєРѕРґРёСЂСѓРµС‚СЃСЏ РёР· JSON РІ РґРІСѓРјРµСЂРЅС‹Р№ СЃРїРёСЃРѕРє (СЃРµС‚РєСѓ).
             continue_grid = json.loads(continue_from)
 
-            # �������� ����� ����� � ����������� �����������
-            grid = [[{'state': cell['state'], 'timer': cell['timer']} for cell in row] for row in continue_grid]
-
-        # ��������� ���������� JSONDecodeError, ������������ ��� ������������ ������� continue_from.
+        # РћР±СЂР°Р±РѕС‚РєР° РёСЃРєР»СЋС‡РµРЅРёСЏ JSONDecodeError, РІРѕР·РЅРёРєР°СЋС‰РµРіРѕ РїСЂРё РЅРµРєРѕСЂСЂРµРєС‚РЅРѕРј С„РѕСЂРјР°С‚Рµ continue_from.
         except json.JSONDecodeError:
-            # ���� ������������� �� �������, �������� ����� ����� �������� size.
+            # Р•СЃР»Рё РґРµРєРѕРґРёСЂРѕРІР°РЅРёРµ РЅРµ СѓРґР°Р»РѕСЃСЊ, СЃРѕР·РґР°С‘С‚СЃСЏ РЅРѕРІР°СЏ СЃРµС‚РєР° СЂР°Р·РјРµСЂРѕРј size.
             grid = initialize_grid(size)
     else:
-        # ���� continue_from �����������, �������� ����� ����� �������� size.
+        # Р•СЃР»Рё continue_from РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚, СЃРѕР·РґР°С‘С‚СЃСЏ РЅРѕРІР°СЏ СЃРµС‚РєР° СЂР°Р·РјРµСЂРѕРј size.
         grid = initialize_grid(size)
 
-    # ���������� ������ ��� �������� � ������ module2_infection_spread.tpl.
+    # РџРѕРґРіРѕС‚РѕРІРєР° РґР°РЅРЅС‹С… РґР»СЏ РїРµСЂРµРґР°С‡Рё РІ С€Р°Р±Р»РѕРЅ module2_infection_spread.tpl.
 
-    # ����������� ��������� ��������������� ��������.
+    # Р—Р°РїСѓСЃРєР°РµС‚СЃСЏ СЃРёРјСѓР»СЏС†РёСЏ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёСЏ РёРЅС„РµРєС†РёРё.
     simulation_steps, final_grid, all_healthy = simulate_all_steps(grid, size)
 
-    # ������������� ������ ��� ��������� � JSON-����������� ������.
+    # РџСЂРµРѕР±СЂР°Р·СѓРµС‚СЃСЏ РєР°Р¶РґС‹Р№ С€Р°Рі СЃРёРјСѓР»СЏС†РёРё РІ JSON-СЃРѕРІРјРµСЃС‚РёРјС‹Р№ С„РѕСЂРјР°С‚.
     simulation_steps_json = [grid_to_json(step) for step in simulation_steps]
 
-    # ������������� �������� ����� � JSON-����������� ������.
+    # РџСЂРµРѕР±СЂР°Р·СѓРµС‚СЃСЏ РєРѕРЅРµС‡РЅР°СЏ СЃРµС‚РєР° РІ JSON-СЃРѕРІРјРµСЃС‚РёРјС‹Р№ С„РѕСЂРјР°С‚.
     final_grid_json = grid_to_json(final_grid)
 
-    # ������� ��� ��������.
+    # РЎР»РѕРІР°СЂСЊ РґР»СЏ РїРµСЂРµРґР°С‡Рё.
     return dict(
         title='The model of ringworm infection spread',
         message='A simulation model exploring the spread of ringworm infection.',
         year=datetime.now().year,
-        # ��������� ��������� ������ �����.
+        # РџРµСЂРµРґР°С‘С‚СЃСЏ РЅР°С‡Р°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ СЃРµС‚РєРё.
         initial_size=size,
 
-        # ��������� ������ ����� ��������� � JSON-������� ��� ����������� � JavaScript.
+        # РџРµСЂРµРґР°С‘С‚СЃСЏ СЃРїРёСЃРѕРє С€Р°РіРѕРІ СЃРёРјСѓР»СЏС†РёРё РІ JSON-С„РѕСЂРјР°С‚Рµ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РІ JavaScript.
         simulation_steps_json=simulation_steps_json,
 
-        # ��������� �������� ����� � JSON-������� ��� ����������� ��� �����������.
+        # РџРµСЂРµРґР°С‘С‚СЃСЏ РєРѕРЅРµС‡РЅР°СЏ СЃРµС‚РєР° РІ JSON-С„РѕСЂРјР°С‚Рµ РґР»СЏ РїСЂРѕРґРѕР»Р¶РµРЅРёСЏ РёР»Рё РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ.
         final_grid_json=final_grid_json,
 
-        # ��������� ����, �����������, �������� �� ��� ������ ���������.
+        # РџРµСЂРµРґР°С‘С‚СЃСЏ С„Р»Р°Рі, СѓРєР°Р·С‹РІР°СЋС‰РёР№, СЏРІР»СЏСЋС‚СЃСЏ Р»Рё РІСЃРµ СЏС‡РµР№РєРё Р·РґРѕСЂРѕРІС‹РјРё.
         all_healthy=all_healthy
     )
 
 
-# Store the current game state and simulation timing
-game = None  # Instance of the GameOfLife class representing the current game
-start_time = None  # Timestamp when the simulation was started
-simulation_records_file = 'downloads/simulation_records.json'  # Path to the JSON file for saving simulation records
 
 @route('/cells_colonies')
 @view('module3_cells_colonies')
 def module3_cells_colonies():
     """Render the 'cells_colonies' page."""
     global game
-    # Initialize a new game with 3x3 grid upon page load
     game = GameOfLife(3, 3)
     return dict(
-        title='Colonies of living cells',  # Page title
-        message='A simulation of growth and interaction in colonies of living cells.',  # Description message
-        year=datetime.now().year  # Current year
+        title='Colonies of living cells',
+        message='A simulation of growth and interaction in colonies of living cells.',
+        year=datetime.now().year
     )
-
-@route('/update_grid', method='POST')
-def update_grid():
-    """Handle grid updates and user actions for the Game of Life simulation."""
-    global game, start_time
-    
-    # Get form data
-    action = request.forms.get('action')
-    width = int(request.forms.get('width', 3))
-    height = int(request.forms.get('height', 3))
-    a = int(request.forms.get('a', 2))
-    b = int(request.forms.get('b', 3))
-    c = int(request.forms.get('c', 3))
-    
-    # Validate input dimensions
-    if width < 1 or height < 1 or width > 50 or height > 50:
-        response.status = 400
-        return {'error': 'Invalid dimensions'}
-    
-    # Validate parameters a, b, c
-    if a < 1 or b < 2 or c < 1 or a > 8 or b > 8 or c > 8:
-        response.status = 400
-        return {'error': 'Invalid parameters a, b, or c'}
-    
-    # If grid size or rules changed, create a new game instance
-    if (game is None or
-        game.width != width or
-        game.height != height or
-        game.a != a or
-        game.b != b or
-        game.c != c):
-        game = GameOfLife(width, height, a, b, c)
-    
-    # Handle different user actions
-    if action == 'start':
-        # Start timing the simulation
-        start_time = datetime.now()
-    elif action == 'tick':
-        # Advance the game by one generation
-        game.next_generation()
-    elif action == 'pause' or action == 'reset':
-        # Pause or reset the simulation
-        if start_time:
-            # Calculate total runtime in seconds
-            runtime = (datetime.now() - start_time).total_seconds()
-            # Save the current simulation record
-            save_simulation_record({
-                'record_id': str(uuid.uuid4()),  # Unique record ID
-                'runtime_seconds': runtime,
-                'width': game.width,
-                'height': game.height,
-                'a': game.a,
-                'b': game.b,
-                'c': game.c,
-                'initial_cell_count': game.initial_cell_count,
-                'initial_cells': game.initial_cells,
-                'final_cell_count': game.current_cell_count
-            })
-            start_time = None  # Reset start time
-        if action == 'reset':
-            # Reset the game to a new random state
-            game.reset()
-    elif action == 'toggle_cell':
-        # Toggle the state of a specific cell
-        x = request.forms.get('x')
-        y = request.forms.get('y')
-        if x is not None and y is not None:
-            try:
-                x, y = int(x), int(y)
-                # Check if coordinates are within bounds
-                if 0 <= x < height and 0 <= y < width:
-                    game.toggle_cell(x, y)
-                else:
-                    response.status = 400
-                    return {'error': 'Invalid cell coordinates'}
-            except ValueError:
-                response.status = 400
-                return {'error': 'Invalid cell coordinates'}
-    elif action == 'save_json':
-        # Save current simulation data to file
-        if start_time:
-            # Calculate total runtime
-            runtime = (datetime.now() - start_time).total_seconds()
-            # Save the record
-            save_simulation_record({
-                'record_id': str(uuid.uuid4()),
-                'runtime_seconds': runtime,
-                'width': game.width,
-                'height': game.height,
-                'a': game.a,
-                'b': game.b,
-                'c': game.c,
-                'initial_cell_count': game.initial_cell_count,
-                'initial_cells': game.initial_cells,
-                'final_cell_count': game.current_cell_count
-            })
-            start_time = None
-        # Return URL for downloading the records file
-        return {'download_url': '/download_records'}
-    
-    # Return current grid state for rendering
-    return {'grid': game.grid}
-
-def save_simulation_record(record):
-    """Append a simulation record to the JSON file."""
-    os.makedirs('downloads', exist_ok=True)  # Ensure the directory exists
-    records = []
-    # Load existing records if the file exists
-    if os.path.exists(simulation_records_file):
-        try:
-            with open(simulation_records_file, 'r') as f:
-                records = json.load(f)
-        except json.JSONDecodeError:
-            # If JSON is invalid, start fresh
-            records = []
-    # Append the new record
-    records.append(record)
-    # Save all records back to the file
-    with open(simulation_records_file, 'w') as f:
-        json.dump(records, f, indent=2)
-
-@route('/download_records')
-def download_records():
-    """Provide the JSON file containing all simulation records for download."""
-    return static_file('simulation_records.json', root='downloads', download=True)
