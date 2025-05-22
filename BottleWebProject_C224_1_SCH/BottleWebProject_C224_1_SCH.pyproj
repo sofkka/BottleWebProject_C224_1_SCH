@@ -18,7 +18,7 @@
     <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
     <Name>BottleWebProject_C224_1_SCH</Name>
     <RootNamespace>BottleWebProject_C224_1_SCH</RootNamespace>
-    <InterpreterId>MSBuild|env1|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>Global|PythonCore|3.11</InterpreterId>
     <TestFramework>unittest</TestFramework>
     <UnitTestPattern>test*.py</UnitTestPattern>
     <UnitTestRootDirectory>static/tests/</UnitTestRootDirectory>
@@ -73,7 +73,6 @@
     <Folder Include="static\tests\" />
     <Folder Include="static\scripts\" />
     <Folder Include="static\tests\test_selenium\" />
-    <Folder Include="static\tests\selenium_jsons\" />
     <Folder Include="views\" />
   </ItemGroup>
   <ItemGroup>
@@ -138,7 +137,7 @@
     <Content Include="static\scripts\respond.js" />
     <Content Include="static\scripts\respond.min.js" />
     <Content Include="static\scripts\_references.js" />
-    <Content Include="static\tests\selenium_jsons\test_module1_wolf_island.json">
+    <Content Include="static\tests\test_selenium\test_module1_wolf_island.json">
       <SubType>Code</SubType>
     </Content>
     <Content Include="static\tests\selenium_jsons\test_module3.json" />
