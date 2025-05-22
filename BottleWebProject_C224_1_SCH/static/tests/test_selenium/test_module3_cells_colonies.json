@@ -1,0 +1,31 @@
+[
+  {
+    "test_case": "Valid Case 1",
+    "width": 3,
+    "height": 3,
+    "a": 3,
+    "b": 2,
+    "c": 3,
+    "cells_to_toggle": [
+      [ 2, 2 ],
+      [ 2, 3 ],
+      [ 3, 2 ],
+      [ 3, 3 ]
+    ],
+    "expected_cell_count": 14
+  },
+  {
+    "test_case": "Valid Case 2",
+    "width": 8,
+    "height": 8,
+    "a": 3,
+    "b": 2,
+    "c": 4,
+    "cells_to_toggle": [
+      [ 1, 1 ],
+      [ 1, 2 ],
+      [ 2, 1 ]
+    ],
+    "expected_cell_count": 9
+  }
+]
