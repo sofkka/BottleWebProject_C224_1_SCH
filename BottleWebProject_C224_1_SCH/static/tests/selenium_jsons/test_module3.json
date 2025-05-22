@@ -1,0 +1,65 @@
+[
+    {
+        "test_case": "TC_UI_INIT_1",
+        "width": 5,
+        "height": 5,
+        "a": 2,
+        "b": 3,
+        "c": 3,
+        "cells_to_toggle": [
+            [ 0, 0 ],
+            [ 1, 1 ],
+            [ 2, 2 ]
+        ],
+        "expected_cell_count": 3
+    },
+    {
+        "test_case": "TC_UI_INIT_2",
+        "width": 3,
+        "height": 3,
+        "a": 1,
+        "b": 2,
+        "c": 3,
+        "cells_to_toggle": [
+            [ 0, 1 ],
+            [ 1, 0 ],
+            [ 1, 1 ]
+        ],
+        "expected_cell_count": 3
+    },
+    {
+        "test_case": "TC_UI_INIT_3",
+        "width": 10,
+        "height": 10,
+        "a": 2,
+        "b": 3,
+        "c": 4,
+        "cells_to_toggle": [
+            [ 0, 0 ],
+            [ 0, 1 ],
+            [ 1, 0 ],
+            [ 1, 1 ]
+        ],
+        "expected_cell_count": 4
+    },
+    {
+        "test_case": "TC_UI_INVALID_1",
+        "width": 0,
+        "height": 5,
+        "a": 2,
+        "b": 3,
+        "c": 3,
+        "cells_to_toggle": [],
+        "expected_error": "Please, send about 3 to 50."
+    },
+    {
+        "test_case": "TC_UI_INVALID_2",
+        "width": 5,
+        "height": 5,
+        "a": -1,
+        "b": 3,
+        "c": 3,
+        "cells_to_toggle": [],
+        "expected_error": "Invalid parameters a, b, or c"
+    }
+]

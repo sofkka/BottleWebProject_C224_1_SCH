@@ -50,6 +50,9 @@
     <Compile Include="static\tests\test_module2_infection_spread.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="static\tests\test_selenium\test_selenium_module3.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="static\tests\test_selenium\test_selenium_module1_wolf_island.py">
       <SubType>Code</SubType>
     </Compile>
@@ -138,6 +141,7 @@
     <Content Include="static\tests\selenium_jsons\test_module1_wolf_island.json">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="static\tests\selenium_jsons\test_module3.json" />
     <Content Include="views\about.tpl" />
     <Content Include="views\contact.tpl" />
     <Content Include="views\index.tpl" />
