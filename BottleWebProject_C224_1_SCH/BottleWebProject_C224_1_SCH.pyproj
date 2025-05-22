@@ -72,6 +72,7 @@
     <Folder Include="jsons\" />
     <Folder Include="static\tests\" />
     <Folder Include="static\scripts\" />
+    <Folder Include="static\tests\selenium_jsons\" />
     <Folder Include="static\tests\test_selenium\" />
     <Folder Include="views\" />
   </ItemGroup>
