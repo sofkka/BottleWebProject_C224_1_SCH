@@ -8,10 +8,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# РЈРєР°Р·С‹РІР°РµС‚СЃСЏ РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ СЃ С‚РµСЃС‚РѕРІС‹РјРё СЃР»СѓС‡Р°СЏРјРё (Р°Р±СЃРѕР»СЋС‚РЅС‹Р№ РїСѓС‚СЊ)
+# Путь к файлу с тестовыми случаями (абсолютный путь)
 TEST_CASES_FILE = r"D:\UP02\BottleWebProject_C224_1_SCH\static\tests\test_selenium\test_module1_wolf_island.json"
 
-# РћРїСЂРµРґРµР»СЏРµС‚СЃСЏ С„СѓРЅРєС†РёСЏ РґР»СЏ Р·Р°РіСЂСѓР·РєРё С‚РµСЃС‚РѕРІС‹С… СЃР»СѓС‡Р°РµРІ РёР· JSON
+# Функция для загрузки тестовых случаев из JSON
 def load_test_cases():
     try:
         if not os.path.exists(TEST_CASES_FILE):
@@ -36,7 +36,7 @@ def load_test_cases():
         print(f"Unexpected error while loading file: {e}")
         raise
 
-# РћРїСЂРµРґРµР»СЏРµС‚СЃСЏ С„СѓРЅРєС†РёСЏ РґР»СЏ РІРІРѕРґР° РґР°РЅРЅС‹С… С‚РµСЃС‚РѕРІРѕРіРѕ СЃР»СѓС‡Р°СЏ РІ РїРѕР»СЏ
+# Функция для ввода данных тестового случая в поля
 def input_test_case_data(driver, test_case):
     driver.find_element(By.ID, "input-n").clear()
     driver.find_element(By.ID, "input-n").send_keys(test_case['N'])
@@ -51,7 +51,7 @@ def input_test_case_data(driver, test_case):
     driver.find_element(By.ID, "input-steps").clear()
     driver.find_element(By.ID, "input-steps").send_keys(test_case['steps'])
 
-# РћРїСЂРµРґРµР»СЏРµС‚СЃСЏ С„СѓРЅРєС†РёСЏ РґР»СЏ РїСЂРѕРІРµСЂРєРё РѕС€РёР±РєРё РІР°Р»РёРґР°С†РёРё
+# Фнукцция для проверка ошибки валидации
 def check_validation_error(driver, expected_error):
     try:
         error_message = driver.find_element(By.ID, "error-message").text
@@ -61,24 +61,24 @@ def check_validation_error(driver, expected_error):
         print(f"Validation check error: {e}")
         raise
 
-# РћРїСЂРµРґРµР»СЏРµС‚СЃСЏ РѕСЃРЅРѕРІРЅР°СЏ С„СѓРЅРєС†РёСЏ РґР»СЏ Р°РІС‚РѕРјР°С‚РёР·Р°С†РёРё
+# Основная функция для автоматизации
 def run_automation():
-    # РЎРѕР·РґР°РµС‚СЃСЏ РѕР±СЉРµРєС‚-РґСЂР°Р№РІРµСЂ Рё Р·Р°РїСѓСЃРєР°РµС‚СЃСЏ Edge
+    # Создание объекта-драйвера и запуск Edge
     driver = webdriver.Edge()
     driver.maximize_window()
 
     try:
-        # Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ РѕС‚РєСЂС‹С‚РёРµ СЃР°Р№С‚Р°
+        # Открытие сайта
         driver.get("http://localhost:443/")
 
-        # Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ РЅР°Р¶Р°С‚РёРµ РЅР° РєРЅРѕРїРєСѓ "Death and reproduction" РІ РЅР°РІРёРіР°С†РёРѕРЅРЅРѕРј РјРµРЅСЋ
+        # Нажатие на кнопку "Death and reproduction" в навигационном меню
         nav_button = driver.find_element(By.XPATH, '//a[@href="/wolf_island" and text()="Death and reproduction"]')
         nav_button.click()
 
-        # Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ Р·Р°РіСЂСѓР·РєР° С‚РµСЃС‚РѕРІС‹С… СЃР»СѓС‡Р°РµРІ
+        # Загрузка тестовых случаев
         test_cases = load_test_cases()
 
-        # Р—Р°РґР°РµС‚СЃСЏ РїРѕСЂСЏРґРѕРє С‚РµСЃС‚РѕРІ: СЃРЅР°С‡Р°Р»Р° РЅРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ РІРІРѕРґС‹, Р·Р°С‚РµРј РєРѕСЂСЂРµРєС‚РЅС‹Р№, Р·Р°С‚РµРј РѕСЃС‚Р°Р»СЊРЅС‹Рµ
+        # Установка порядка тестов
         input_test_ids = [
             "invalid_N_too_large",
             "invalid_N_non_integer",
@@ -91,44 +91,44 @@ def run_automation():
             "valid_all_fields"
         ]
 
-        # Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёРµ РІСЃРµС… СЃР»СѓС‡Р°РµРІ, СЃРІСЏР·Р°РЅРЅС‹С… СЃ РІРІРѕРґРѕРј
+        # Тестирование всех случаев, связанных с вводом
         for test_id in input_test_ids:
             print(f"\nRunning test: {test_id}")
             test_case = next(tc for tc in test_cases if tc['test_id'] == test_id)
 
-            # Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ РІРІРѕРґ РґР°РЅРЅС‹С…
+            # Ввод данных
             input_test_case_data(driver, test_case)
 
-            # РџСЂРѕРёР·РІРѕРґРёС‚СЃСЏ РїСЂРѕРєСЂСѓС‚РєР° СЃС‚СЂР°РЅРёС†С‹ Рє РєРЅРѕРїРєРµ "Start" Рё РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ РЅР°Р¶Р°С‚РёРµ
+            # Прокрутка страницы к кнопке "Start" и нажатие
             start_button = driver.find_element(By.ID, "btn-start")
             driver.execute_script("arguments[0].scrollIntoView(true);", start_button)
             start_button.click()
 
-            # Р”РѕР±Р°РІР»СЏРµС‚СЃСЏ Р·Р°РґРµСЂР¶РєР° РІ 2 СЃРµРєСѓРЅРґС‹ РїРѕСЃР»Рµ РЅР°Р¶Р°С‚РёСЏ "Start" РґР»СЏ РЅРµРєРѕСЂСЂРµРєС‚РЅС‹С… РІРІРѕРґРѕРІ
+            # Добавление задержки в 2 секунды после нажатия "Start" для некорректных вводов
             if test_id != "valid_all_fields":
                 time.sleep(2)
 
-            # РџСЂРѕРІРµСЂСЏРµС‚СЃСЏ СЂРµР·СѓР»СЊС‚Р°С‚
+            # Проверка результата
             if test_case['expected_error']:
-                # РџСЂРѕРІРµСЂСЏРµС‚СЃСЏ РЅР°Р»РёС‡РёРµ РѕС€РёР±РєРё РІР°Р»РёРґР°С†РёРё
+                # Проверка наличия ошибки валидации
                 check_validation_error(driver, test_case['expected_error'])
             else:
-                # РџСЂРѕРІРµСЂСЏРµС‚СЃСЏ СѓСЃРїРµС€РЅС‹Р№ Р·Р°РїСѓСЃРє СЃРёРјСѓР»СЏС†РёРё
+                # Проверка успешного запуска симуляции
                 stats = driver.find_element(By.ID, "stats-panel")
                 assert 'Simulation step' in stats.text, "Simulation did not start"
                 print("Simulation successfully started for valid input")
 
-        # Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёРµ РѕСЃС‚Р°Р»СЊРЅС‹С… СЃР»СѓС‡Р°РµРІ
-        # РўРµСЃС‚ "Generate random values"
+        # Тестирование остальных случаев
+        # Тест "Generate random values"
         test_case = next(tc for tc in test_cases if tc['test_id'] == 'generate_random_values')
         print(f"\nRunning test: {test_case['test_id']}")
         input_test_case_data(driver, test_case)
         generate_button = driver.find_element(By.ID, "btn-generate")
         generate_button.click()
 
-        # Р”РѕР±Р°РІР»СЏРµС‚СЃСЏ Р·Р°РґРµСЂР¶РєР° РґР»СЏ РѕР±РµСЃРїРµС‡РµРЅРёСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‚СЂР°РЅРёС†С‹ РїРѕСЃР»Рµ РіРµРЅРµСЂР°С†РёРё СЃР»СѓС‡Р°Р№РЅС‹С… Р·РЅР°С‡РµРЅРёР№
+        # Добавление задержки для обновления страницы после генерации случайных значений
         time.sleep(1)  
-        # Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅС‹Р№ РїРѕРёСЃРє СЌР»РµРјРµРЅС‚РѕРІ РґР»СЏ РїСЂРµРґРѕС‚РІСЂР°С‰РµРЅРёСЏ РѕС€РёР±РєРё
+        # Повторный поиск элементов для предотвращения ошибки
         assert driver.find_element(By.ID, 'input-n').get_attribute('value') != '', "Field N not filled"
         assert driver.find_element(By.ID, 'input-m').get_attribute('value') != '', "Field M not filled"
         assert driver.find_element(By.ID, 'input-rabbits').get_attribute('value') != '', "Field rabbits not filled"
@@ -137,15 +137,15 @@ def run_automation():
         assert driver.find_element(By.ID, 'input-steps').get_attribute('value') != '', "Field steps not filled"
         print("Generate random values test successful: fields filled with random values")
 
-        # РўРµСЃС‚ "Reset simulation"
+        # Тест "Reset simulation"
         test_case = next(tc for tc in test_cases if tc['test_id'] == 'reset_simulation')
         print(f"\nRunning test: {test_case['test_id']}")
         input_test_case_data(driver, test_case)
         reset_button = driver.find_element(By.ID, "btn-reset")
         reset_button.click()
-        # Р”РѕР±Р°РІР»СЏРµС‚СЃСЏ Р·Р°РґРµСЂР¶РєР° РґР»СЏ РѕР±РµСЃРїРµС‡РµРЅРёСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‚СЂР°РЅРёС†С‹ РїРѕСЃР»Рµ СЃР±СЂРѕСЃР°
+        # Добавление задержки для обновления страницы после сброса
         time.sleep(1)
-        # Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅС‹Р№ РїРѕРёСЃРє СЌР»РµРјРµРЅС‚РѕРІ РїРѕСЃР»Рµ СЃР±СЂРѕСЃР° РґР»СЏ РїСЂРµРґРѕС‚РІСЂР°С‰РµРЅРёСЏ РѕС€РёР±РєРё
+        # Повторный поиск элементов после сброса для предотвращения ошибки
         assert driver.find_element(By.ID, 'input-n').get_attribute('value') == '15', "Field N not reset"
         assert driver.find_element(By.ID, 'input-m').get_attribute('value') == '15', "Field M not reset"
         assert driver.find_element(By.ID, 'input-rabbits').get_attribute('value') == '', "Field rabbits not reset"
@@ -154,7 +154,7 @@ def run_automation():
         assert driver.find_element(By.ID, 'input-steps').get_attribute('value') == '', "Field steps not reset"
         print("Reset simulation test successful: fields reset")
 
-        # РўРµСЃС‚ "About Wolf Island"
+        # Тест "About Wolf Island"
         test_case = next(tc for tc in test_cases if tc['test_id'] == 'about_button')
         print(f"\nRunning test: {test_case['test_id']}")
         input_test_case_data(driver, test_case)
@@ -164,7 +164,7 @@ def run_automation():
         assert about_section.is_displayed(), "About Wolf Island section not displayed"
         print("About button test successful: About Wolf Island section displayed")
 
-        # РџСЂРѕРёР·РІРѕРґРёС‚СЃСЏ РїСЂРѕРєСЂСѓС‚РєР° СЃС‚СЂР°РЅРёС†С‹ Рє СЃРµРєС†РёРё СЃС‚Р°С‚РёСЃС‚РёРєРё
+        # Прокрутка страницы к секции статистики
         stats = driver.find_element(By.ID, "stats-panel")
         driver.execute_script("arguments[0].scrollIntoView(true);", stats)
 
